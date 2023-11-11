@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # create-release.sh
-# Part of https://github.com/wrljet/homebrew-sdl-hercules-develop.git
+# Part of https://github.com/wrljet/sdl-hercules-develop-homebrew
 # Author:  Bill Lewis  bill@wrljet.com
 # Updated: 11 NOV 2023
 
