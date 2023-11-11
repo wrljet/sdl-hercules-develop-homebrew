@@ -4,8 +4,8 @@
 class SdlHerculesDevelop < Formula
   desc "SDL-Hercules-390 Develop Branch, under The Q Public License"
   homepage "https://github.com/wrljet/homebrew-sdl-hercules"
-  url "https://github.com/wrljet/sdl-hercules-binaries-macos/archive/refs/tags/v0.9.3.tar.gz"
-  sha256 "eb36fe3683340e108586e004f15785ee0bbaed9c9e244c238d57f3a94409f602"
+  url "https://github.com/wrljet/sdl-hercules-binaries-macos/archive/refs/tags/v0.9.4.tar.gz"
+  sha256 ""
   license "QPL-1.0"
 
   def install

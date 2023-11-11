@@ -302,7 +302,7 @@ verbose_msg # output a newline
 status_prompter "Step: Create new formula (with new tag $NEW_TAG):"
 
 # Update release tag in URL
-cp sdl-hercules-develop.rb sdl-hercules-develop.rb.old
+echo_and_run "cp sdl-hercules-develop.rb sdl-hercules-develop.rb.old"
 
 gsed -i -e "s/v0\.9\.[0-9]\+\.tar\.gz/$NEW_TAG.tar.gz/" sdl-hercules-develop.rb
 
@@ -327,8 +327,9 @@ git status
 verbose_msg # output a newline
 status_prompter "Step: Commit new Homebrew formula to GitHub (with new tag $NEW_TAG):"
 
-git commit -a -m "Formula $NEW_TAG, SDL-Hercules-390 build $SDL_VERSION"
-git push
+echo_and_run "git add sdl-hercules-develop.rb"
+echo_and_run "git commit -m \"Formula $NEW_TAG, SDL-Hercules-390 build $SDL_VERSION\""
+echo_and_run "git push"
 
 # end
 
