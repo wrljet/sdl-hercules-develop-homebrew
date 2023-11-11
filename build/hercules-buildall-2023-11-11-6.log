@@ -1,0 +1,1914 @@
+Using logfile: hercules-buildall-2023-11-11-6.log
+Creating build cmds file: /Users/bill/sdl-hercules-develop-homebrew/build/build-commands-2023-11-11-6.log
+Creating extra diagnostic info file: /Users/bill/sdl-hercules-develop-homebrew/build/extra-info-2023-11-11-6.log
+Script version: /Users/bill/hercules-helper/hercules-buildall.sh: v0.9.14-42-g9396540
+
+--flavor= is not specified.  Assuming build style: SDL-Hyperion
+--config specified.  Overriding default for build flavor "sdl-hyperion"
+
+Config file: /Users/bill/sdl-hercules-develop-homebrew/build-for-homebrew.conf
+
+General Options:
+  --trace         : false
+  --verbose       : true
+  --prompts       : true
+  --beeps         : true
+  --sudo          : false
+  --askpass       : false
+  --homebrew      : true
+  --detect-only   : false
+  --no-packages   : false
+  --no-rexx       : false
+  --no-gitclone   : false
+  --no-bldlvlck   : false
+  --no-autogen    : true
+  --no-configure  : false
+  --no-clean      : false
+  --no-make       : false
+  --no-tests      : false
+  --no-install    : false
+  --no-setcap     : false
+  --no-envscript  : false
+  --no-bashrc     : true
+
+System information:
+  uname -a        : Darwin Bills-Mac.local 18.7.0 Darwin Kernel Version 18.7.0: Tue Jun 22 19:37:08 PDT 2021; root:xnu-4903.278.70~1/RELEASE_X86_64 x86_64
+  uname -m        : x86_64
+  uname -p        : i386
+  uname -s        : Darwin
+
+System detection:
+OS Type          : Darwin
+Machine Arch     : x86_64
+VERSION_ID       : darwin
+VERSION_STR      : 10.14.6
+VERSION_MAJOR    : 10
+VERSION_MINOR    : 14
+VERSION_BUILD    : 6
+Memory Total (MB): 6144
+Apple macOS version 10.14.6 (Mojave) found
+Platform Bitness : 64
+ulimit -c        : 0
+ls -ld /cores    : drwxrwxr-t  2 root  admin  64 Aug 17  2018 /cores
+
+[0;32m[[ note: ]] [0mNote: based on the selected options, your sudo password will be required.
+
+Configuration:
+FLAVOR               : sdl-hyperion
+Config file          : /Users/bill/sdl-hercules-develop-homebrew/build-for-homebrew.conf
+REPO_NAME            : hyperion
+OPT_BUILD_DIR        : /Users/bill/sdl-hercules-develop-homebrew/build
+OPT_INSTALL_DIR      : /usr/local
+OPT_REGINA_DIR       : Regina-REXX-3.6
+OPT_REGINA_TARFILE   : Regina-REXX-3.6.tar.gz
+OPT_REGINA_URL       : http://www.wrljet.com/ibm360/Regina-REXX-3.6.tar.gz
+GIT_REPO_HERCULES    : https://github.com/SDL-Hercules-390/hyperion.git [default branch]
+GIT_REPO_EXTPKGS     : https://github.com/SDL-Hercules-390 [default branch]
+
+Environment variables:
+Search Path      : /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
+SUDO_ASKPASS     : 
+CC               : cc
+                 : Apple clang version 11.0.0 (clang-1100.0.33.16)
+GCC              : 
+CFLAGS           : 
+CPPFLAGS         : 
+LDFLAGS          : 
+LD_LIBRARY_PATH  : 
+
+Performing Steps:
+run  : Check for required system packages
+run  : Include REXX support, build Regina REXX if needed
+run  : Git clone Hercules and external packages
+skip : Run bldlvlck
+run  : Build Hercules external packages
+skip : Run autogen
+run  : Run configure
+run  : Run make clean
+run  : Run make (compile and link)
+run  : Run make check
+run  : Run make install
+run  : setcap executables
+run  : Create script to set environment variables
+skip : Add setting environment variables to bash profile
+
+Existing build tools versions:
+  autoconf       : autoconf (GNU Autoconf) 2.71
+  automake       : automake (GNU automake) 1.16.5
+  libtool        : Apple Inc. version cctools-949.0.1
+  m4             : GNU M4 1.4.6
+  make           : GNU Make 3.81
+  compiler       : Apple clang version 11.0.0 (clang-1100.0.33.16)
+  linker         : ld: unknown option: --version
+  gcc presence   : /usr/bin/gcc
+  g++ presence   : /usr/bin/g++
+
+Looking for compiler files ... please wait ...
+Adding results to /Users/bill/sdl-hercules-develop-homebrew/build/extra-info-2023-11-11-6.log
+
+
+Step: Create installation directory  Hit return to continue
+Installation directory created: /usr/local
+
+Step: Check for required packages:  Hit return to continue
+Required packages: 
+wget autoconf automake libtool cmake gsed
+
+-----------------------------------------------------------------
+Checking for package: wget
+package: wget is already installed
+-----------------------------------------------------------------
+Checking for package: autoconf
+package: autoconf is already installed
+-----------------------------------------------------------------
+Checking for package: automake
+package: automake is already installed
+-----------------------------------------------------------------
+Checking for package: libtool
+package: libtool is already installed
+-----------------------------------------------------------------
+Checking for package: cmake
+Warning: Treating cmake as a formula. For the cask, use homebrew/cask/cmake
+package: cmake is already installed
+-----------------------------------------------------------------
+Checking for package: gsed
+package: gsed is already installed
+
+Step: Check REXX and compiler files:  Hit return to continue
+REXX presence    : /usr/local/bin/rexx
+Checking for Regina-REXX...  
+Found REXX       : REXX-Regina_3.6(MT) 5.00 31 Dec 2011
+Regina version   : 3.6(MT)
+cc_status = 0
+rexxsaa.h is found in cc search path
+Checking for ooRexx... nope
+Found REXX, but not ooRexx
+
+Processing started: Sat Nov 11 15:52:39 EST 2023
+-----------------------------------------------------------------
+
+Regina REXX is present.  Skipping build Regina from source.
+-----------------------------------------------------------------
+
+Step: git clone all required repos:  Hit return to continue
+git clone https://github.com/SDL-Hercules-390/hyperion.git
+Cloning into 'hyperion'...
+Checking out files:  95% (1240/1302)   Checking out files:  96% (1250/1302)   Checking out files:  97% (1263/1302)   Checking out files:  98% (1276/1302)   Checking out files:  99% (1289/1302)   Checking out files: 100% (1302/1302)   Checking out files: 100% (1302/1302), done.
+-----------------------------------------------------------------
+    
+git clone https://github.com/SDL-Hercules-390/crypto
+Cloning into 'crypto'...
+-----------------------------------------------------------------
+    
+git clone https://github.com/SDL-Hercules-390/decNumber
+Cloning into 'decNumber'...
+-----------------------------------------------------------------
+    
+git clone https://github.com/SDL-Hercules-390/SoftFloat
+Cloning into 'SoftFloat'...
+-----------------------------------------------------------------
+    
+git clone https://github.com/SDL-Hercules-390/telnet
+Cloning into 'telnet'...
+-----------------------------------------------------------------
+
+Skipping step: util/bldlvlck (--no-bldlvlck)
+-----------------------------------------------------------------
+
+Step: Prepare and build extpkgs:  Hit return to continue
+Building extpkg: crypto
+~/sdl-hercules-develop-homebrew/build/extpkgs/build/crypto64.Release ~/sdl-hercules-develop-homebrew/build/extpkgs
+cmake -D INSTALL_PREFIX=/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs -DLIB_INSTALL_DIR=lib /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/crypto
+
+-- The C compiler identification is AppleClang 11.0.0.11000033
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+++ SOURCE_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/crypto' 
+++ BINARY_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build/crypto64.Release' 
+++ BINARY_DIR_NAME 'crypto64.Release' 
+++ TRUNCATED_BINARY_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build' 
+++ BINARY_HLQ '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build' 
+++ BINARY_DIR 'crypto64.Release' 
+++ _xxxxx 'crypto64' 
+++ CONFIG 'Release' 
+++ CMAKE_BUILD_TYPE 'RelWithDebInfo' 
+++ BASENAME 'crypto' 
+++ BITNESS '64' 
+++ CONFIG 'Release' 
+++ DBGCHAR '' 
+++ SUFFIX '64' 
+++ FULLNAME 'crypto64' 
+++ CMAKE_BINARY_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build/crypto64.Release' 
+++ CMAKE_INSTALL_PREFIX '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs' 
+++ LIB_INSTALL_DIR 'lib' 
+-- Found Git: /usr/bin/git (found version "2.21.0 (Apple Git-122.2)") 
+++ GIT_COMMIT_COUNT '52' 
+++ GIT_HASH7 'a5096e5' 
+++ GIT_MODIFIED '' 
+Building crypto64 version 1.0.0.52-ga5096e5
+-- Looking for stdbool.h
+-- Looking for stdbool.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Performing Test OK
+-- Performing Test OK - Failed
+++ CMAKE_C_FLAGS_DEBUG '-g           -D LITTLE_ENDIAN=1234 -D BIG_ENDIAN=4321 -D BYTE_ORDER=LITTLE_ENDIAN          -D HAVE_PLATFORM_H -D DEBUG          -D VERS_STRING=1.0.0.52-ga5096e5           -fPIC' 
+++ CMAKE_C_FLAGS_RELWITHDEBINFO '-O2 -g -DNDEBUG  -D LITTLE_ENDIAN=1234 -D BIG_ENDIAN=4321 -D BYTE_ORDER=LITTLE_ENDIAN -D HAVE_PLATFORM_H -D VERS_STRING=1.0.0.52-ga5096e5  -fPIC' 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build/crypto64.Release
+[ 16%] Building C object CMakeFiles/crypto64.dir/crypto_version.c.o
+[ 33%] Building C object CMakeFiles/crypto64.dir/source/rijndael.c.o
+[ 50%] Building C object CMakeFiles/crypto64.dir/source/sha1.c.o
+[ 66%] Building C object CMakeFiles/crypto64.dir/source/sha2.c.o
+[ 83%] Building C object CMakeFiles/crypto64.dir/source/sshdes.c.o
+[100%] Linking C static library libcrypto64.a
+[100%] Built target crypto64
+Consolidate compiler generated dependencies of target crypto64
+[100%] Built target crypto64
+Install the project...
+-- Install configuration: "RelWithDebInfo"
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/lib/libcrypto64.a
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/crypto_version.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/crypto.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/rijndael.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/sha1.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/sha2.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/sshdes.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/./crypto.LICENSE.txt
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/./crypto.README.txt
+~/sdl-hercules-develop-homebrew/build/extpkgs
+Building extpkg: decNumber
+~/sdl-hercules-develop-homebrew/build/extpkgs/build/decNumber64.Release ~/sdl-hercules-develop-homebrew/build/extpkgs
+cmake -D INSTALL_PREFIX=/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs -DLIB_INSTALL_DIR=lib /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/decNumber
+
+-- The C compiler identification is AppleClang 11.0.0.11000033
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+++ SOURCE_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/decNumber' 
+++ BINARY_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build/decNumber64.Release' 
+++ BINARY_DIR_NAME 'decNumber64.Release' 
+++ TRUNCATED_BINARY_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build' 
+++ BINARY_HLQ '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build' 
+++ BINARY_DIR 'decNumber64.Release' 
+++ _xxxxx 'decNumber64' 
+++ CONFIG 'Release' 
+++ CMAKE_BUILD_TYPE 'RelWithDebInfo' 
+++ BASENAME 'decNumber' 
+++ BITNESS '64' 
+++ CONFIG 'Release' 
+++ DBGCHAR '' 
+++ SUFFIX '64' 
+++ FULLNAME 'decNumber64' 
+++ CMAKE_BINARY_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build/decNumber64.Release' 
+++ CMAKE_INSTALL_PREFIX '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs' 
+++ LIB_INSTALL_DIR 'lib' 
+-- Found Git: /usr/bin/git (found version "2.21.0 (Apple Git-122.2)") 
+++ GIT_COMMIT_COUNT '102' 
+++ GIT_HASH7 '3aa2f45' 
+++ GIT_MODIFIED '' 
+Building decNumber64 version 3.68.0.102-g3aa2f45
+-- Looking for stdbool.h
+-- Looking for stdbool.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Performing Test OK
+-- Performing Test OK - Failed
+++ CMAKE_C_FLAGS_DEBUG '-g           -D DECPRINT=0 -D LITTLE_ENDIAN=1234 -D BIG_ENDIAN=4321 -D BYTE_ORDER=LITTLE_ENDIAN -D DECLITEND=1          -D HAVE_PLATFORM_H -D DEBUG          -D VERS_STRING=3.68.0.102-g3aa2f45           -fPIC' 
+++ CMAKE_C_FLAGS_RELWITHDEBINFO '-O2 -g -DNDEBUG  -D DECPRINT=0 -D LITTLE_ENDIAN=1234 -D BIG_ENDIAN=4321 -D BYTE_ORDER=LITTLE_ENDIAN -D DECLITEND=1 -D HAVE_PLATFORM_H -D VERS_STRING=3.68.0.102-g3aa2f45  -fPIC' 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build/decNumber64.Release
+[ 18%] Building C object CMakeFiles/decNumber64.dir/source/decContext.c.o
+[ 18%] Building C object CMakeFiles/decNumber64.dir/decnumber_version.c.o
+[ 27%] Building C object CMakeFiles/decNumber64.dir/source/decDouble.c.o
+[ 36%] Building C object CMakeFiles/decNumber64.dir/source/decNumber.c.o
+[ 45%] Building C object CMakeFiles/decNumber64.dir/source/decPacked.c.o
+[ 54%] Building C object CMakeFiles/decNumber64.dir/source/decQuad.c.o
+[ 63%] Building C object CMakeFiles/decNumber64.dir/source/decSingle.c.o
+[ 72%] Building C object CMakeFiles/decNumber64.dir/source/decimal128.c.o
+[ 81%] Building C object CMakeFiles/decNumber64.dir/source/decimal32.c.o
+[ 90%] Building C object CMakeFiles/decNumber64.dir/source/decimal64.c.o
+[100%] Linking C static library libdecNumber64.a
+[100%] Built target decNumber64
+Consolidate compiler generated dependencies of target decNumber64
+[100%] Built target decNumber64
+Install the project...
+-- Install configuration: "RelWithDebInfo"
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/lib/libdecNumber64.a
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/decnumber_version.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/decContext.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/decNumber.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/decPacked.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/decQuad.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/decimal128.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/decimal32.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/decimal64.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/./decnumber.ICU-license.html
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/./decnumber.pdf
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/./decnumber.readme.txt
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/./decnumber.ERRATA
+~/sdl-hercules-develop-homebrew/build/extpkgs
+Building extpkg: SoftFloat
+~/sdl-hercules-develop-homebrew/build/extpkgs/build/SoftFloat64.Release ~/sdl-hercules-develop-homebrew/build/extpkgs
+cmake -D INSTALL_PREFIX=/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs -DLIB_INSTALL_DIR=lib /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/SoftFloat
+
+-- The C compiler identification is AppleClang 11.0.0.11000033
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+++ SOURCE_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/SoftFloat' 
+++ BINARY_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build/SoftFloat64.Release' 
+++ BINARY_DIR_NAME 'SoftFloat64.Release' 
+++ TRUNCATED_BINARY_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build' 
+++ BINARY_HLQ '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build' 
+++ BINARY_DIR 'SoftFloat64.Release' 
+++ _xxxxx 'SoftFloat64' 
+++ CONFIG 'Release' 
+++ CMAKE_BUILD_TYPE 'RelWithDebInfo' 
+++ BASENAME 'SoftFloat' 
+++ BITNESS '64' 
+++ CONFIG 'Release' 
+++ DBGCHAR '' 
+++ SUFFIX '64' 
+++ FULLNAME 'SoftFloat64' 
+++ CMAKE_BINARY_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build/SoftFloat64.Release' 
+++ CMAKE_INSTALL_PREFIX '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs' 
+++ LIB_INSTALL_DIR 'lib' 
+-- Found Git: /usr/bin/git (found version "2.21.0 (Apple Git-122.2)") 
+++ GIT_COMMIT_COUNT '105' 
+++ GIT_HASH7 '4b0c326' 
+++ GIT_MODIFIED '' 
+Building SoftFloat64 version 3.5.0.105-g4b0c326
+-- Looking for stdbool.h
+-- Looking for stdbool.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Performing Test OK
+-- Performing Test OK - Failed
+++ CMAKE_C_FLAGS_DEBUG '-g           -D LITTLE_ENDIAN=1234 -D BIG_ENDIAN=4321 -D BYTE_ORDER=LITTLE_ENDIAN -D LITTLEENDIAN -D HAVE_PLATFORM_H -D SOFTFLOAT_FAST_INT64 -D SOFTFLOAT_FAST_DIV64TO32 -D DEBUG          -D VERS_STRING=3.5.0.105-g4b0c326           -fPIC' 
+++ CMAKE_C_FLAGS_RELWITHDEBINFO '-O2 -g -DNDEBUG  -D LITTLE_ENDIAN=1234 -D BIG_ENDIAN=4321 -D BYTE_ORDER=LITTLE_ENDIAN -D LITTLEENDIAN -D HAVE_PLATFORM_H -D SOFTFLOAT_FAST_INT64 -D SOFTFLOAT_FAST_DIV64TO32 -D VERS_STRING=3.5.0.105-g4b0c326  -fPIC' 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build/SoftFloat64.Release
+[  1%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/f128_roundToInt.c.o
+[  1%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/f128_scaledResult.c.o
+[  1%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/f32_roundToInt.c.o
+[  2%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/f32_scaledResult.c.o
+[  3%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/f64_roundToInt.c.o
+[  3%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/f64_scaledResult.c.o
+[  4%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_addMagsF128.c.o
+[  5%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_addMagsF32.c.o
+[  5%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_addMagsF64.c.o
+[  6%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_mulAddF32.c.o
+[  7%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_mulAddF64.c.o
+[  7%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_propagateNaNF128UI.c.o
+[  8%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_propagateNaNF32UI.c.o
+[  9%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_propagateNaNF64UI.c.o
+[  9%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_roundPackToF128.c.o
+[ 10%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_roundPackToF32.c.o
+[ 11%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_roundPackToF64.c.o
+[ 11%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_roundToI32.c.o
+[ 12%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_roundToI64.c.o
+[ 13%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_roundToUI32.c.o
+[ 13%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_roundToUI64.c.o
+[ 14%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_subMagsF32.c.o
+[ 15%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/s_subMagsF64.c.o
+[ 15%] Building C object CMakeFiles/SoftFloat64.dir/hercsource/softfloat_state.c.o
+[ 15%] Building C object CMakeFiles/SoftFloat64.dir/source/8086-SSE/s_commonNaNToF128UI.c.o
+[ 16%] Building C object CMakeFiles/SoftFloat64.dir/softfloat_version.c.o
+[ 17%] Building C object CMakeFiles/SoftFloat64.dir/source/8086-SSE/s_commonNaNToF32UI.c.o
+[ 18%] Building C object CMakeFiles/SoftFloat64.dir/source/8086-SSE/s_commonNaNToF64UI.c.o
+[ 18%] Building C object CMakeFiles/SoftFloat64.dir/source/8086-SSE/s_f128UIToCommonNaN.c.o
+[ 19%] Building C object CMakeFiles/SoftFloat64.dir/source/8086-SSE/s_f32UIToCommonNaN.c.o
+[ 20%] Building C object CMakeFiles/SoftFloat64.dir/source/8086-SSE/s_f64UIToCommonNaN.c.o
+[ 20%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_add.c.o
+[ 21%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_div.c.o
+[ 22%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_eq.c.o
+[ 22%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_eq_signaling.c.o
+[ 23%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_isSignalingNaN.c.o
+[ 24%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_le.c.o
+[ 24%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_le_quiet.c.o
+[ 25%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_lt.c.o
+[ 26%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_lt_quiet.c.o
+[ 27%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_mul.c.o
+[ 27%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_mulAdd.c.o
+[ 28%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_rem.c.o
+[ 28%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_sqrt.c.o
+[ 29%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_sub.c.o
+[ 30%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_to_f32.c.o
+[ 30%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_to_f64.c.o
+[ 31%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_to_i32.c.o
+[ 32%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_to_i32_r_minMag.c.o
+[ 32%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_to_i64.c.o
+[ 32%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_to_ui32.c.o
+[ 33%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_to_i64_r_minMag.c.o
+[ 34%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_to_ui32_r_minMag.c.o
+[ 35%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_to_ui64.c.o
+[ 35%] Building C object CMakeFiles/SoftFloat64.dir/source/f128_to_ui64_r_minMag.c.o
+[ 36%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_add.c.o
+[ 37%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_div.c.o
+[ 37%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_eq.c.o
+[ 39%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_isSignalingNaN.c.o
+[ 39%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_eq_signaling.c.o
+[ 39%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_le.c.o
+[ 40%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_le_quiet.c.o
+[ 41%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_lt.c.o
+[ 41%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_lt_quiet.c.o
+[ 43%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_mul.c.o
+[ 43%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_mulAdd.c.o
+[ 43%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_rem.c.o
+[ 44%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_sqrt.c.o
+[ 45%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_sub.c.o
+[ 45%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_to_f128.c.o
+[ 46%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_to_f64.c.o
+[ 47%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_to_i32.c.o
+[ 47%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_to_i32_r_minMag.c.o
+[ 48%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_to_i64.c.o
+[ 49%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_to_i64_r_minMag.c.o
+[ 49%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_to_ui32.c.o
+[ 50%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_to_ui32_r_minMag.c.o
+[ 50%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_to_ui64.c.o
+[ 51%] Building C object CMakeFiles/SoftFloat64.dir/source/f32_to_ui64_r_minMag.c.o
+[ 52%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_add.c.o
+[ 52%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_div.c.o
+[ 53%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_eq.c.o
+[ 54%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_eq_signaling.c.o
+[ 54%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_isSignalingNaN.c.o
+[ 55%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_le.c.o
+[ 56%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_le_quiet.c.o
+[ 56%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_lt.c.o
+[ 57%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_lt_quiet.c.o
+[ 58%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_mul.c.o
+[ 58%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_mulAdd.c.o
+[ 59%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_rem.c.o
+[ 60%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_sqrt.c.o
+[ 60%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_sub.c.o
+[ 61%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_to_f128.c.o
+[ 62%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_to_f32.c.o
+[ 62%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_to_i32.c.o
+[ 63%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_to_i32_r_minMag.c.o
+[ 64%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_to_i64.c.o
+[ 64%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_to_i64_r_minMag.c.o
+[ 65%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_to_ui32.c.o
+[ 66%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_to_ui32_r_minMag.c.o
+[ 66%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_to_ui64.c.o
+[ 67%] Building C object CMakeFiles/SoftFloat64.dir/source/f64_to_ui64_r_minMag.c.o
+[ 67%] Building C object CMakeFiles/SoftFloat64.dir/source/i32_to_f128.c.o
+[ 68%] Building C object CMakeFiles/SoftFloat64.dir/source/i32_to_f32.c.o
+[ 69%] Building C object CMakeFiles/SoftFloat64.dir/source/i32_to_f64.c.o
+[ 69%] Building C object CMakeFiles/SoftFloat64.dir/source/i64_to_f128.c.o
+[ 70%] Building C object CMakeFiles/SoftFloat64.dir/source/i64_to_f32.c.o
+[ 71%] Building C object CMakeFiles/SoftFloat64.dir/source/i64_to_f64.c.o
+[ 71%] Building C object CMakeFiles/SoftFloat64.dir/source/s_add128.c.o
+[ 72%] Building C object CMakeFiles/SoftFloat64.dir/source/s_add256M.c.o
+[ 73%] Building C object CMakeFiles/SoftFloat64.dir/source/s_approxRecip32_1.c.o
+[ 73%] Building C object CMakeFiles/SoftFloat64.dir/source/s_approxRecipSqrt32_1.c.o
+[ 74%] Building C object CMakeFiles/SoftFloat64.dir/source/s_approxRecipSqrt_1Ks.c.o
+[ 74%] Building C object CMakeFiles/SoftFloat64.dir/source/s_countLeadingZeros64.c.o
+[ 75%] Building C object CMakeFiles/SoftFloat64.dir/source/s_countLeadingZeros32.c.o
+[ 76%] Building C object CMakeFiles/SoftFloat64.dir/source/s_countLeadingZeros8.c.o
+[ 77%] Building C object CMakeFiles/SoftFloat64.dir/source/s_eq128.c.o
+[ 77%] Building C object CMakeFiles/SoftFloat64.dir/source/s_le128.c.o
+[ 78%] Building C object CMakeFiles/SoftFloat64.dir/source/s_lt128.c.o
+[ 79%] Building C object CMakeFiles/SoftFloat64.dir/source/s_mul128By32.c.o
+[ 79%] Building C object CMakeFiles/SoftFloat64.dir/source/s_mul128To256M.c.o
+[ 80%] Building C object CMakeFiles/SoftFloat64.dir/source/s_mul64ByShifted32To128.c.o
+[ 81%] Building C object CMakeFiles/SoftFloat64.dir/source/s_mul64To128.c.o
+[ 81%] Building C object CMakeFiles/SoftFloat64.dir/source/s_mulAddF128.c.o
+[ 82%] Building C object CMakeFiles/SoftFloat64.dir/source/s_normRoundPackToF128.c.o
+[ 83%] Building C object CMakeFiles/SoftFloat64.dir/source/s_normRoundPackToF32.c.o
+[ 83%] Building C object CMakeFiles/SoftFloat64.dir/source/s_normRoundPackToF64.c.o
+[ 84%] Building C object CMakeFiles/SoftFloat64.dir/source/s_normSubnormalF32Sig.c.o
+[ 84%] Building C object CMakeFiles/SoftFloat64.dir/source/s_normSubnormalF128Sig.c.o
+[ 85%] Building C object CMakeFiles/SoftFloat64.dir/source/s_normSubnormalF64Sig.c.o
+[ 86%] Building C object CMakeFiles/SoftFloat64.dir/source/s_shiftRightJam128.c.o
+[ 86%] Building C object CMakeFiles/SoftFloat64.dir/source/s_shiftRightJam128Extra.c.o
+[ 87%] Building C object CMakeFiles/SoftFloat64.dir/source/s_shiftRightJam256M.c.o
+[ 88%] Building C object CMakeFiles/SoftFloat64.dir/source/s_shiftRightJam32.c.o
+[ 88%] Building C object CMakeFiles/SoftFloat64.dir/source/s_shiftRightJam64.c.o
+[ 89%] Building C object CMakeFiles/SoftFloat64.dir/source/s_shiftRightJam64Extra.c.o
+[ 90%] Building C object CMakeFiles/SoftFloat64.dir/source/s_shortShiftLeft128.c.o
+[ 90%] Building C object CMakeFiles/SoftFloat64.dir/source/s_shortShiftRight128.c.o
+[ 91%] Building C object CMakeFiles/SoftFloat64.dir/source/s_shortShiftRightJam128.c.o
+[ 92%] Building C object CMakeFiles/SoftFloat64.dir/source/s_shortShiftRightJam128Extra.c.o
+[ 92%] Building C object CMakeFiles/SoftFloat64.dir/source/s_shortShiftRightJam64.c.o
+[ 93%] Building C object CMakeFiles/SoftFloat64.dir/source/s_shortShiftRightJam64Extra.c.o
+[ 94%] Building C object CMakeFiles/SoftFloat64.dir/source/s_sub128.c.o
+[ 94%] Building C object CMakeFiles/SoftFloat64.dir/source/s_sub256M.c.o
+[ 95%] Building C object CMakeFiles/SoftFloat64.dir/source/s_subMagsF128.c.o
+[ 96%] Building C object CMakeFiles/SoftFloat64.dir/source/ui32_to_f128.c.o
+[ 96%] Building C object CMakeFiles/SoftFloat64.dir/source/ui32_to_f32.c.o
+[ 97%] Building C object CMakeFiles/SoftFloat64.dir/source/ui32_to_f64.c.o
+[ 98%] Building C object CMakeFiles/SoftFloat64.dir/source/ui64_to_f128.c.o
+[ 98%] Building C object CMakeFiles/SoftFloat64.dir/source/ui64_to_f32.c.o
+[ 99%] Building C object CMakeFiles/SoftFloat64.dir/source/ui64_to_f64.c.o
+[100%] Linking C static library libSoftFloat64.a
+[100%] Built target SoftFloat64
+Consolidate compiler generated dependencies of target SoftFloat64
+[100%] Built target SoftFloat64
+Install the project...
+-- Install configuration: "RelWithDebInfo"
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/lib/libSoftFloat64.a
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/softfloat_version.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/softfloat.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/softfloat_types.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/./softfloat.LICENSE.txt
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/./softfloat.README.txt
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/./softfloat.README.html
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/doc
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/doc/SoftFloat-source.html
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/doc/SoftFloat.html
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/doc/SoftFloat-history.html
+~/sdl-hercules-develop-homebrew/build/extpkgs
+Building extpkg: telnet
+~/sdl-hercules-develop-homebrew/build/extpkgs/build/telnet64.Release ~/sdl-hercules-develop-homebrew/build/extpkgs
+cmake -D INSTALL_PREFIX=/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs -DLIB_INSTALL_DIR=lib /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/telnet
+
+-- The C compiler identification is AppleClang 11.0.0.11000033
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+++ SOURCE_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/telnet' 
+++ BINARY_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build/telnet64.Release' 
+++ BINARY_DIR_NAME 'telnet64.Release' 
+++ TRUNCATED_BINARY_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build' 
+++ BINARY_HLQ '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build' 
+++ BINARY_DIR 'telnet64.Release' 
+++ _xxxxx 'telnet64' 
+++ CONFIG 'Release' 
+++ CMAKE_BUILD_TYPE 'RelWithDebInfo' 
+++ BASENAME 'telnet' 
+++ BITNESS '64' 
+++ CONFIG 'Release' 
+++ DBGCHAR '' 
+++ SUFFIX '64' 
+++ FULLNAME 'telnet64' 
+++ CMAKE_BINARY_DIR '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build/telnet64.Release' 
+++ CMAKE_INSTALL_PREFIX '/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs' 
+++ LIB_INSTALL_DIR 'lib' 
+-- Found Git: /usr/bin/git (found version "2.21.0 (Apple Git-122.2)") 
+++ GIT_COMMIT_COUNT '63' 
+++ GIT_HASH7 '729f0b6' 
+++ GIT_MODIFIED '' 
+Building telnet64 version 1.0.0.63-g729f0b6
+-- Looking for stdbool.h
+-- Looking for stdbool.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Performing Test OK
+-- Performing Test OK - Failed
+++ CMAKE_C_FLAGS_DEBUG '-g                    -D HAVE_PLATFORM_H -D DEBUG          -D VERS_STRING=1.0.0.63-g729f0b6           -fPIC' 
+++ CMAKE_C_FLAGS_RELWITHDEBINFO '-O2 -g -DNDEBUG  -D HAVE_PLATFORM_H -D VERS_STRING=1.0.0.63-g729f0b6  -fPIC' 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/build/telnet64.Release
+[ 66%] Building C object CMakeFiles/telnet64.dir/source/telnet.c.o
+[ 66%] Building C object CMakeFiles/telnet64.dir/telnet_version.c.o
+[100%] Linking C static library libtelnet64.a
+[100%] Built target telnet64
+Consolidate compiler generated dependencies of target telnet64
+[100%] Built target telnet64
+Install the project...
+-- Install configuration: "RelWithDebInfo"
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/lib/libtelnet64.a
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/telnet.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/include/telnet_version.h
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/./telnet.LICENSE.txt
+-- Installing: /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs/./telnet.README.txt
+~/sdl-hercules-develop-homebrew/build/extpkgs
+-----------------------------------------------------------------
+
+Skipping step: autogen.sh (--no-autogen)
+-----------------------------------------------------------------
+
+Step: configure:  Hit return to continue
+Regina REXX is present. Using configure option: --enable-regina-rexx
+C compiler accepts -march=native
+Disabling "getopt wrapper kludge" for Apple Darwin
+
+
+~/sdl-hercules-develop-homebrew/build/hyperion ~/sdl-hercules-develop-homebrew/build/hyperion
+CFLAGS= -I/usr/local/Cellar/libtool/2.4.7/include
+LDFLAGS= -L/usr/local/Cellar/libtool/2.4.7/lib
+../configure --enable-optimization="-g -g3 -ggdb3 -O3 -march=native" --enable-extpkgs=/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs --prefix=/usr/local --enable-custom="Built using Hercules-Helper (version: v0.9.14-42-g9396540)" --enable-regina-rexx --disable-getoptwrapper --without-included-ltdl
+
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... ../autoconf/install-sh -c -d
+checking for gawk... no
+checking for mawk... no
+checking for nawk... no
+checking for awk... awk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make supports nested variables... (cached) yes
+checking whether to enable maintainer-specific portions of Makefiles... no
+checking build system type... x86_64-apple-darwin18.7.0
+checking host system type... x86_64-apple-darwin18.7.0
+checking target system type... x86_64-apple-darwin18.7.0
+checking whether make supports the include directive... yes (GNU style)
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking whether gcc understands -c and -o together... yes
+checking dependency style of gcc... gcc3
+checking target CPU architecture ... x86 
+checking target CPU bitness ... 64 
+configure: Detected GCC equivalent level for gcc : 4.2.1 
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/local/bin/gsed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by gcc... /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+checking if the linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) is GNU ld... no
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+checking the name lister (/usr/bin/nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 196608
+checking how to convert x86_64-apple-darwin18.7.0 file names to x86_64-apple-darwin18.7.0 format... func_convert_file_noop
+checking how to convert x86_64-apple-darwin18.7.0 file names to toolchain format... func_convert_file_noop
+checking for /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for dlltool... dlltool
+checking how to associate runtime and link libraries... printf %s\n
+checking for ar... ar
+checking for archiver @FILE support... no
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for sysroot... no
+checking for a working dd... /bin/dd
+checking how to truncate binary pipes... /bin/dd bs=4096 count=1
+checking for mt... no
+checking if : is a manifest tool... no
+checking for dsymutil... dsymutil
+checking for nmedit... nmedit
+checking for lipo... lipo
+checking for otool... otool
+checking for otool64... no
+checking for -single_module linker flag... yes
+checking for -exported_symbols_list linker flag... yes
+checking for -force_load linker flag... yes
+checking how to run the C preprocessor... gcc -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... yes
+checking for gcc option to produce PIC... -fno-common -DPIC
+checking if gcc PIC flag -fno-common -DPIC works... yes
+checking if gcc static flag -static works... no
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... darwin18.7.0 dyld
+checking how to hardcode library paths into programs... immediate
+checking for dlopen in -ldl... yes
+checking whether a program can dlopen itself... yes
+checking whether a statically linked program can dlopen itself... yes
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+checking what extension is used for runtime loadable modules... .so
+checking what variable specifies run-time module search path... DYLD_LIBRARY_PATH
+checking for the default library search path... /usr/local/lib /lib /usr/lib
+checking for library containing dlopen... none required
+checking for dlerror... yes
+checking for shl_load... no
+checking for shl_load in -ldld... no
+checking for dld_link in -ldld... no
+checking for _ prefix in compiled symbols... yes
+checking whether we have to add an underscore for dlsym... no
+checking whether deplibs are loaded by dlopen... yes
+checking for argz.h... no
+checking for error_t... no
+checking for argz_add... no
+checking for argz_append... no
+checking for argz_count... no
+checking for argz_create_sep... no
+checking for argz_insert... no
+checking for argz_next... no
+checking for argz_stringify... no
+checking whether libtool supports -dlopen/-dlpreopen... yes
+checking for ltdl.h... yes
+checking whether lt_dlinterface_register is declared... yes
+checking for lt_dladvise_preload in -lltdl... yes
+checking where to find libltdl headers... 
+checking where to find libltdl library... -lltdl
+checking for unistd.h... (cached) yes
+checking for dl.h... no
+checking for sys/dl.h... no
+checking for dld.h... no
+checking for mach-o/dyld.h... yes
+checking for dirent.h... yes
+checking for closedir... yes
+checking for opendir... yes
+checking for readdir... yes
+checking for strlcat... yes
+checking for strlcpy... yes
+configure: (use of lt_dlopen forced by Hercules Dynamic Loader requirement) 
+checking ctype.h usability... yes
+checking ctype.h presence... yes
+checking for ctype.h... yes
+checking errno.h usability... yes
+checking errno.h presence... yes
+checking for errno.h... yes
+checking fcntl.h usability... yes
+checking fcntl.h presence... yes
+checking for fcntl.h... yes
+checking limits.h usability... yes
+checking limits.h presence... yes
+checking for limits.h... yes
+checking setjmp.h usability... yes
+checking setjmp.h presence... yes
+checking for setjmp.h... yes
+checking stdarg.h usability... yes
+checking stdarg.h presence... yes
+checking for stdarg.h... yes
+checking stdio.h usability... yes
+checking stdio.h presence... yes
+checking for stdio.h... yes
+checking for stdlib.h... (cached) yes
+checking for string.h... (cached) yes
+checking sched.h usability... yes
+checking sched.h presence... yes
+checking for sched.h... yes
+checking time.h usability... yes
+checking time.h presence... yes
+checking for time.h... yes
+checking for unistd.h... (cached) yes
+checking for sys/stat.h... (cached) yes
+checking sys/time.h usability... yes
+checking sys/time.h presence... yes
+checking for sys/time.h... yes
+checking for sys/types.h... (cached) yes
+checking sys/mman.h usability... yes
+checking sys/mman.h presence... yes
+checking for sys/mman.h... yes
+checking pthread.h usability... yes
+checking pthread.h presence... yes
+checking for pthread.h... yes
+checking whether HQA_DIR is defined ... no 
+checking for sys/socket.h... yes
+checking for netinet/in.h... yes
+checking for net/if.h... yes
+checking for net/route.h... yes
+checking for net/tcp.h... no
+checking for netinet/tcp.h... yes
+checking arpa/inet.h usability... yes
+checking arpa/inet.h presence... yes
+checking for arpa/inet.h... yes
+checking linux/if_tun.h usability... no
+checking linux/if_tun.h presence... no
+checking for linux/if_tun.h... no
+checking sys/ioctl.h usability... yes
+checking sys/ioctl.h presence... yes
+checking for sys/ioctl.h... yes
+checking for linux/ipv6.h... no
+checking for net/if_var.h... yes
+checking for netinet/in_var.h... yes
+checking for netinet6/in6_var.h... yes
+checking sys/param.h usability... yes
+checking sys/param.h presence... yes
+checking for sys/param.h... yes
+checking for sys/mount.h... yes
+checking for stdatomic.h... yes
+checking for sys/sysctl.h... yes
+checking for assert.h... yes
+checking sys/mtio.h usability... no
+checking sys/mtio.h presence... no
+checking for sys/mtio.h... no
+checking sys/resource.h usability... yes
+checking sys/resource.h presence... yes
+checking for sys/resource.h... yes
+checking sys/uio.h usability... yes
+checking sys/uio.h presence... yes
+checking for sys/uio.h... yes
+checking sys/utsname.h usability... yes
+checking sys/utsname.h presence... yes
+checking for sys/utsname.h... yes
+checking sys/wait.h usability... yes
+checking sys/wait.h presence... yes
+checking for sys/wait.h... yes
+checking sys/un.h usability... yes
+checking sys/un.h presence... yes
+checking for sys/un.h... yes
+checking byteswap.h usability... no
+checking byteswap.h presence... no
+checking for byteswap.h... no
+checking bzlib.h usability... yes
+checking bzlib.h presence... yes
+checking for bzlib.h... yes
+checking for dirent.h... (cached) yes
+checking for dlfcn.h... (cached) yes
+checking fenv.h usability... yes
+checking fenv.h presence... yes
+checking for fenv.h... yes
+checking for inttypes.h... (cached) yes
+checking for stdint.h... (cached) yes
+checking stdbool.h usability... yes
+checking stdbool.h presence... yes
+checking for stdbool.h... yes
+checking locale.h usability... yes
+checking locale.h presence... yes
+checking for locale.h... yes
+checking for ltdl.h... (cached) yes
+checking malloc.h usability... no
+checking malloc.h presence... no
+checking for malloc.h... no
+checking math.h usability... yes
+checking math.h presence... yes
+checking for math.h... yes
+checking netdb.h usability... yes
+checking netdb.h presence... yes
+checking for netdb.h... yes
+checking pwd.h usability... yes
+checking pwd.h presence... yes
+checking for pwd.h... yes
+checking regex.h usability... yes
+checking regex.h presence... yes
+checking for regex.h... yes
+checking signal.h usability... yes
+checking signal.h presence... yes
+checking for signal.h... yes
+checking termios.h usability... yes
+checking termios.h presence... yes
+checking for termios.h... yes
+checking for time.h... (cached) yes
+checking zlib.h usability... yes
+checking zlib.h presence... yes
+checking for zlib.h... yes
+checking sys/capability.h usability... no
+checking sys/capability.h presence... no
+checking for sys/capability.h... no
+checking sys/prctl.h usability... no
+checking sys/prctl.h presence... no
+checking for sys/prctl.h... no
+checking sys/syscall.h usability... yes
+checking sys/syscall.h presence... yes
+checking for sys/syscall.h... yes
+checking rexx.h usability... no
+checking rexx.h presence... no
+checking for rexx.h... no
+checking oorexxapi.h usability... no
+checking oorexxapi.h presence... no
+checking for oorexxapi.h... no
+checking regina/rexxsaa.h usability... no
+checking regina/rexxsaa.h presence... no
+checking for regina/rexxsaa.h... no
+checking rexxsaa.h usability... yes
+checking rexxsaa.h presence... yes
+checking for rexxsaa.h... yes
+checking whether SIGPIPE is declared... yes
+checking whether SIGBUS is declared... yes
+checking whether IFNAMSIZ is declared... no
+checking whether LOGIN_NAME_MAX is declared... no
+checking whether _SC_NPROCESSORS_CONF is declared... yes
+checking whether _SC_NPROCESSORS_ONLN is declared... yes
+checking whether SIOCSIFNETMASK is declared... no
+checking whether SIOCSIFBRDADDR is declared... no
+checking whether SIOCSIFHWADDR is declared... no
+checking whether SIOCGIFHWADDR is declared... no
+checking whether SIOCADDRT is declared... no
+checking whether SIOCDELRT is declared... no
+checking whether SIOCDIFADDR is declared... no
+configure: Checking for TCP keepalive support... 
+checking whether SO_KEEPALIVE is declared... yes
+checking whether TCP_KEEPIDLE is declared... no
+checking whether TCP_KEEPINTVL is declared... yes
+checking whether TCP_KEEPCNT is declared... yes
+configure: TCP keepalive support...  PARTIAL 
+checking for __int128_t... yes
+checking for u_int8_t... yes
+checking for useconds_t... yes
+checking for id_t... yes
+checking for u_char... yes
+checking for u_short... yes
+checking for u_int... yes
+checking for u_long... yes
+checking for in_addr_t... yes
+checking for socklen_t... yes
+checking for _pipe          in -lmsvcrt... no
+checking for dlopen         in -ldl... yes
+checking for sqrt           in -lm... yes
+checking for connect        in -lsocket... no
+checking for gethostbyname  in -lnsl... no
+checking for inet_aton      in -lresolv... yes
+checking for uncompress in -lz... yes
+checking for BZ2_bzBuffToBuffDecompress in -lbz2... yes
+checking for sched_yield  in -lrt... no
+checking for pthread_setname_np... yes
+checking for pthread_rwlockattr_setpshared... yes
+checking for memrchr... no
+checking for getopt_long... yes
+checking for sqrtl... yes
+checking for ldexpl... yes
+checking for fabsl... yes
+checking for fmodl... yes
+checking for frexpl... yes
+checking for ldexpf... yes
+checking for frexpf... yes
+checking for fabsf... yes
+checking for rint... yes
+checking for strlcpy... (cached) yes
+checking for strlcat... (cached) yes
+checking for strerror_r... yes
+checking for strsignal... yes
+checking for sys_siglist... yes
+checking for InitializeCriticalSectionAndSpinCount... no
+checking for sleep... yes
+checking for usleep... yes
+checking for nanosleep... yes
+checking for sched_yield... yes
+checking for strtok_r... yes
+checking for pipe... yes
+checking for gettimeofday... yes
+checking for getpgrp... yes
+checking for scandir... yes
+checking for alphasort... yes
+checking for getlogin... yes
+checking for getlogin_r... yes
+checking for realpath... yes
+checking for fdatasync... yes
+checking for fsync... yes
+checking for ftruncate... yes
+checking for inet_aton... yes
+checking for fork... yes
+checking for socketpair... yes
+checking for sysconf... yes
+checking for mlock... yes
+checking for mlockall... yes
+checking for pvalloc... no
+checking for valloc... yes
+checking for posix_memalign... yes
+checking for vsscanf... yes
+checking for setresuid... no
+checking for getresuid... no
+checking for setreuid... yes
+checking for geteuid... yes
+checking for getuid... yes
+checking whether fdatasync is supported... no
+checking for struct sockaddr_in.sin_len... yes
+checking for struct in_addr.s_addr... yes
+checking for struct in6_ifreq.ifr6_addr... no
+checking for struct in6_ifreq.ifr_ifru.ifru_flags... yes
+checking for struct sigaction.sa_sigaction... yes
+checking for struct timespec.tv_nsec... no
+checking for struct timespec.tv_nsec... (cached) no
+checking whether byte ordering is bigendian... no
+checking size of int... 4
+checking size of long... 8
+checking size of long long... 8
+checking size of size_t... 8
+checking size of int *... 8
+checking size of off_t... 8
+checking size of pthread_t... 8
+configure: begin check: whether byte structs are aligned/rounded by default... 
+checking size of struct bytestruct... 1
+configure: results: byte structs are aligned/rounded by default... no 
+checking if this is the broken 2.96 version of GCC... no
+checking if '_bswap' builtins are available... yes
+checking if atomic '_sync' builtins are available... yes
+checking if '__atomic' intrinsics are available... yes
+checking if C11 atomics are available... yes
+checking what 'ATOMIC_BOOL_LOCK_FREE's value is... 2
+checking what 'ATOMIC_CHAR_LOCK_FREE's value is... 2
+checking what 'ATOMIC_CHAR16_T_LOCK_FREE's value is... 2
+checking what 'ATOMIC_CHAR32_T_LOCK_FREE's value is... 2
+checking what 'ATOMIC_WCHAR_T_LOCK_FREE's value is... 2
+checking what 'ATOMIC_SHORT_LOCK_FREE's value is... 2
+checking what 'ATOMIC_INT_LOCK_FREE's value is... 2
+checking what 'ATOMIC_LONG_LOCK_FREE's value is... 2
+checking what 'ATOMIC_LLONG_LOCK_FREE's value is... 2
+checking what 'ATOMIC_POINTER_LOCK_FREE's value is... 2
+checking C99 struct flexible arrays support... yes
+checking whether '__attribute__ ((format(printf,n,n)))' is supported... yes
+checking whether '__attribute__ ((regparm(n)))' is supported... yes
+checking whether GCC supports diagnostic pragma... yes
+checking whether GCC supports diagnostic push/pop pragma... yes
+checking whether GCC issues 'function defined but not used' warnings... yes
+checking whether GCC issues 'variable set but not used' warnings... no
+checking whether '__attribute__ ((regparm(3)))' is broken... no
+checking whether '__builtin_alloca' is broken... no
+checking whether preprocessor macro argument counting broken... no
+checking if this is GCC with broken '-O3' option... no
+checking if 'pthread_setname_np' takes only name... yes
+checking if 'pthread_setname_np' takes 3 arguments... no
+checking for gcc strict aliasing insanity... no
+checking whether '-traditional-cpp' is K&R C preprocessor... yes
+checking whether byte-swapping can be done using assembler ... yes 
+checking whether 'optreset' needed for 'getopt' use... yes
+checking for special C compiler options needed for large files... no
+checking for _FILE_OFFSET_BITS value needed for large files... no
+checking for off_t... yes
+checking for _LARGEFILE_SOURCE value needed for large files... no
+configure: Using External Packages override directory /Users/bill/sdl-hercules-develop-homebrew/build/extpkgs 
+configure: NOTICE: sizeof(__int128_t) >= 16; max CPU engines = 128 
+checking whether getopt wrapper kludge is necessary... no (forced)
+checking for what optimization flags to use ... -g -g3 -ggdb3 -O3 -march=native 
+configure:                                           
+configure:  Package destination directory prefixes:  
+configure:                                           
+configure:     Libraries:  $(libdir)/$(PACKAGE)             
+configure:     Data:       $(datadir)/hercules      
+configure:     Locale:     ${datarootdir}/locale              
+configure:                                           
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating util/Makefile
+config.status: creating html/Makefile
+config.status: creating man/Makefile
+config.status: creating m4/Makefile
+config.status: creating config.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+
+./config.status --config ...
+'--enable-optimization=-g -g3 -ggdb3 -O3 -march=native' '--enable-extpkgs=/Users/bill/sdl-hercules-develop-homebrew/build/extpkgs' '--prefix=/usr/local' '--enable-custom=Built using Hercules-Helper (version: v0.9.14-42-g9396540)' '--enable-regina-rexx' '--disable-getoptwrapper' '--without-included-ltdl' 'CFLAGS= -I/usr/local/Cellar/libtool/2.4.7/include' 'LDFLAGS= -L/usr/local/Cellar/libtool/2.4.7/lib'
+-----------------------------------------------------------------
+
+Step: make clean:  Hit return to continue
+make clean
+Making clean in m4
+rm -rf .libs _libs
+rm -f *.lo
+Making clean in util
+rm -rf .libs _libs
+rm -f *.lo
+Making clean in html
+rm -rf .libs _libs
+rm -f *.lo
+Making clean in man
+rm -rf .libs _libs
+rm -f *.lo
+Making clean in .
+ rm -f cckdcdsk cckdcomp cckddiag cckdswap cckdcdsk64 cckdcomp64 cckddiag64 cckdswap64 convto64 cckdmap dasdcat dasdconv dasdcopy dasdinit dasdconv64 dasdcopy64 dasdinit64 dasdisup dasdload dasdload64 dasdls dasdpdsu dasdseq dasdser dmap2hrc hercules hetget hetinit hetmap hetupd maketape tapecopy tapemap tapesplt tfprint tfswap txt2card vmfplc2 hercifc herclin
+test -z "libhercs.la libhercu.la libherct.la libhercd.la libherc.la libhdt3420_not_mod.la" || rm -f libhercs.la libhercu.la libherct.la libhercd.la libherc.la libhdt3420_not_mod.la
+rm -f ./so_locations
+rm -rf .libs _libs
+test -z "dyncrypt.la dyngui.la hdteq.la hdtptp.la hdtqeth.la hdtzfcp.la hdt1052c.la hdt1403.la hdt2703.la hdttcpnje.la hdt3705.la hdt3088.la hdt3270.la hdt3420.la hdt3505.la hdt2880.la hdtdummy.la hdt3525.la" || rm -f dyncrypt.la dyngui.la hdteq.la hdtptp.la hdtqeth.la hdtzfcp.la hdt1052c.la hdt1403.la hdt2703.la hdttcpnje.la hdt3705.la hdt3088.la hdt3270.la hdt3420.la hdt3505.la hdt2880.la hdtdummy.la hdt3525.la
+rm -f ./so_locations
+test -z "" || rm -f 
+rm -f *.o
+rm -f *.lo
+-----------------------------------------------------------------
+
+Step: make -j 3:  Hit return to continue
+
+time make -j 3 2>&1
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  all-recursive
+Making all in m4
+make[2]: Nothing to be done for `all'.
+Making all in util
+make[2]: Nothing to be done for `all'.
+Making all in html
+make[2]: Nothing to be done for `all'.
+Making all in man
+make[2]: Nothing to be done for `all'.
+Making all in .
+  CC       hsys.lo
+  CC       cckdcdsk.o
+  CC       codepage.lo
+  CC       hdl.lo
+  CC       hexdumpe.lo
+  CC       hostinfo.lo
+  CC       hscutl.lo
+  CC       hsocket.lo
+  CC       hthreads.lo
+  CC       logger.lo
+  CC       logmsg.lo
+../hthreads.c:1295:48: warning: format specifies type 'unsigned long long *' but the argument has type 'TID *' (aka 'struct _opaque_pthread_t **') [-Wformat]
+    else if (sscanf( argv[1], SCN_TIDPAT "%c", &tid, &c ) != 1)
+                              ~~~~~~~~~~       ^~~~
+../hthreads.c:1563:48: warning: format specifies type 'unsigned long long *' but the argument has type 'TID *' (aka 'struct _opaque_pthread_t **') [-Wformat]
+    else if (sscanf( argv[1], SCN_TIDPAT "%c", &tid, &c ) != 1)
+                              ~~~~~~~~~~       ^~~~
+  CC       machdep.lo
+2 warnings generated.
+  CC       memrchr.lo
+  CC       parser.lo
+  CC       pttrace.lo
+  CC       version.lo
+  CC       hetlib.lo
+  CC       ftlib.lo
+  CC       sllib.lo
+  CC       cache.lo
+  CC       cckddasd.lo
+  CC       cckdutil.lo
+  CC       ckddasd.lo
+../cckddasd.c:6717:13: warning: format specifies type 'long' but the argument has type '__darwin_suseconds_t' (aka 'int') [-Wformat]
+            timeval.tv_usec,                // "uuuuuu"   (%6.6ld
+            ^~~~~~~~~~~~~~~
+../msgenu.h:208:70: note: expanded from macro 'MSGBUF'
+#define MSGBUF( _buf, ... )     snprintf(_buf, sizeof(_buf),      ## __VA_ARGS__ )
+                                                                     ^~~~~~~~~~~
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h:57:62: note: expanded from macro 'snprintf'
+  __builtin___snprintf_chk (str, len, 0, __darwin_obsz(str), __VA_ARGS__)
+                                                             ^~~~~~~~~~~
+  CC       cckddasd64.lo
+1 warning generated.
+  CC       cckdutil64.lo
+  CC       ckddasd64.lo
+  CC       dasdtab.lo
+  CC       dasdutil.lo
+  CC       fbadasd.lo
+  CC       dasdutil64.lo
+  CC       fbadasd64.lo
+  CC       shared.lo
+  CC       _archdep_templ.lo
+  CC       archlvl.lo
+  CC       assist.lo
+  CC       bldcfg.lo
+  CC       cgibin.lo
+  CC       channel.lo
+  CC       chsc.lo
+  CC       clock.lo
+  CC       cmdtab.lo
+  CC       cmpsc_2012.lo
+  CC       cmpscdbg.lo
+  CC       cmpscdct.lo
+  CC       cmpscget.lo
+  CC       cmpscmem.lo
+  CC       cmpscput.lo
+  CC       config.lo
+  CC       control.lo
+  CC       cpu.lo
+  CC       crypto.lo
+  CC       dat.lo
+  CC       decimal.lo
+  CC       dfp.lo
+  CC       diagmssf.lo
+  CC       diagnose.lo
+  CC       dyn76.lo
+  CC       ecpsvm.lo
+  CC       esame.lo
+  CC       external.lo
+  CC       facility.lo
+  CC       fillfnam.lo
+  CC       float.lo
+  CC       general1.lo
+  CC       general2.lo
+  CC       general3.lo
+  CC       hao.lo
+  CC       hbyteswp.lo
+  CC       hconsole.lo
+  CC       hdiagf18.lo
+  CC       history.lo
+  CC       hRexx.lo
+  CC       hRexx_o.lo
+../hRexx.c:957:68: warning: format specifies type 'unsigned long long *' but the argument has type 'TID *' (aka 'struct _opaque_pthread_t **') [-Wformat]
+                        if (sscanf( argv[ iarg ], SCN_TIDPAT "%c", &tid, &c ) == 1)
+                                                  ~~~~~~~~~~       ^~~~
+  CC       hRexx_r.lo
+1 warning generated.
+  CC       hsccmd.lo
+  CC       hscemode.lo
+  CC       hscloc.lo
+  CC       hscmisc.lo
+  CC       hscpufun.lo
+  CC       httpserv.lo
+  CC       ieee.lo
+  CC       impl.lo
+  CC       inline.lo
+../impl.c:1234:5: warning: ../impl.c(1234) : warning : This build of Hercules will only have partial TCP keepalive support [-W#pragma-messages]
+    WARNING("This build of Hercules will only have partial TCP keepalive support")
+    ^
+../ccfixme.h:102:33: note: expanded from macro 'WARNING'
+  #define WARNING( _str )       QPRAGMA( message(  WARN_LINE  _str ))
+                                ^
+../ccfixme.h:64:33: note: expanded from macro 'QPRAGMA'
+  #define QPRAGMA( x )          _Pragma( #x )
+                                ^
+<scratch space>:7:2: note: expanded from here
+ message( WARN_LINE "This build of Hercules will only have partial TCP keepalive support" )
+ ^
+../impl.c:796:20: warning: inline function 's370_get_storage_key' is not defined [-Wundefined-inline]
+extern inline BYTE s370_get_storage_key( U64 abs );
+                   ^
+../impl.c:991:24: note: used here
+    sysblk.s370_gsk = &s370_get_storage_key;
+                       ^
+../impl.c:797:20: warning: inline function 's390_get_storage_key' is not defined [-Wundefined-inline]
+extern inline BYTE s390_get_storage_key( U64 abs );
+                   ^
+../impl.c:992:24: note: used here
+    sysblk.s390_gsk = &s390_get_storage_key;
+                       ^
+../impl.c:798:20: warning: inline function 'z900_get_storage_key' is not defined [-Wundefined-inline]
+extern inline BYTE z900_get_storage_key( U64 abs );
+                   ^
+../impl.c:993:24: note: used here
+    sysblk.z900_gsk = &z900_get_storage_key;
+                       ^
+4 warnings generated.
+  CC       io.lo
+  CC       ipl.lo
+  CC       loadmem.lo
+  CC       loadparm.lo
+  CC       losc.lo
+  CC       machchk.lo
+  CC       opcode.lo
+  CC       panel.lo
+  CC       pfpo.lo
+  CC       plo.lo
+  CC       qdio.lo
+  CC       scedasd.lo
+  CC       scescsi.lo
+  CC       script.lo
+In file included from ../scescsi.c:797:
+../scescsi.c:509:9: warning: format specifies type 'unsigned long long' but the argument has type 'long' [-Wformat]
+        (BYTE*)sccb - (BYTE*)sysblk.mainstor );
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../msgenu.h:110:92: note: expanded from macro 'WRMSG'
+#define  WRMSG(     id, sev, ... ) LOGMSG(                      #id "%s " id "\n", sev, ## __VA_ARGS__ )
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../msgenu.h:108:92: note: expanded from macro 'LOGMSG'
+#define  LOGMSG(      fmt,   ... ) PWRITEMSG(  WRMSG_NORMAL,       fmt,                 ## __VA_ARGS__ )
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../msgenu.h:100:106: note: expanded from macro 'PWRITEMSG'
+#define  PWRITEMSG( pan,    fmt, ... ) PFWRITEMSG(                                  pan, stdout, fmt, ## __VA_ARGS__ )
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../msgenu.h:99:106: note: expanded from macro 'PFWRITEMSG'
+#define PFWRITEMSG( pan, f, fmt, ... ) fwritemsg( __FILE__, __LINE__, __FUNCTION__, pan,   f,    fmt, ## __VA_ARGS__ )
+                                                                                                 ~~~     ^~~~~~~~~~~
+In file included from ../scescsi.c:803:
+../scescsi.c:509:9: warning: format specifies type 'unsigned long long' but the argument has type 'long' [-Wformat]
+        (BYTE*)sccb - (BYTE*)sysblk.mainstor );
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../msgenu.h:110:92: note: expanded from macro 'WRMSG'
+#define  WRMSG(     id, sev, ... ) LOGMSG(                      #id "%s " id "\n", sev, ## __VA_ARGS__ )
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../msgenu.h:108:92: note: expanded from macro 'LOGMSG'
+#define  LOGMSG(      fmt,   ... ) PWRITEMSG(  WRMSG_NORMAL,       fmt,                 ## __VA_ARGS__ )
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../msgenu.h:100:106: note: expanded from macro 'PWRITEMSG'
+#define  PWRITEMSG( pan,    fmt, ... ) PFWRITEMSG(                                  pan, stdout, fmt, ## __VA_ARGS__ )
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+../msgenu.h:99:106: note: expanded from macro 'PFWRITEMSG'
+#define PFWRITEMSG( pan, f, fmt, ... ) fwritemsg( __FILE__, __LINE__, __FUNCTION__, pan,   f,    fmt, ## __VA_ARGS__ )
+                                                                                                 ~~~     ^~~~~~~~~~~
+  CC       service.lo
+2 warnings generated.
+  CC       sie.lo
+  CC       skey.lo
+  CC       sr.lo
+  CC       stack.lo
+  CC       strsignal.lo
+  CC       tcpip.lo
+  CC       timer.lo
+  CC       trace.lo
+  CC       transact.lo
+  CC       vector.lo
+  CC       vm.lo
+  CC       vmd250.lo
+  CC       vstore.lo
+  CC       x75.lo
+  CC       xstore.lo
+  CC       tapedev.lo
+  CC       tapeccws.lo
+  CC       awstape.lo
+  CC       faketape.lo
+  CC       hettape.lo
+  CC       omatape.lo
+  CC       scsitape.lo
+  CC       scsiutil.lo
+  CC       cckdcomp.o
+  CC       cckddiag.o
+  CC       cckdswap.o
+  CC       cckdcdsk64.o
+  CC       cckdcomp64.o
+  CC       cckddiag64.o
+  CC       cckdswap64.o
+  CC       convto64.o
+  CC       cckdmap.o
+  CC       dasdcat.o
+  CC       dasdconv.o
+  CC       dasdcopy.o
+  CC       dasdinit.o
+  CC       dasdconv64.o
+  CC       dasdcopy64.o
+  CC       dasdinit64.o
+  CC       dasdisup.o
+  CC       dasdload.o
+  CC       dasdload64.o
+  CC       dasdls.o
+  CC       dasdpdsu.o
+  CC       dasdseq.o
+  CC       dasdser.o
+  CC       dmap2hrc.o
+  CC       bootstrap.o
+  CC       hetget.o
+  CC       hetinit.o
+  CC       hetmap.o
+  CC       hetupd.o
+  CC       maketape.o
+  CC       tapecopy-tapecopy.o
+  CC       tapecopy-scsiutil.o
+  CC       tapemap.o
+  CC       tapesplt.o
+  CC       tfprint.o
+  CC       tfswap.o
+  CC       txt2card.o
+  CC       vmfplc2.o
+  CC       hercifc.o
+  CC       herclin.o
+  CC       dyncrypt.lo
+  CC       dyngui.lo
+  CC       hdteq.lo
+  CC       ctc_ptp.lo
+  CC       mpc.lo
+  CC       resolve.lo
+  CC       tuntap.lo
+  CC       qeth.lo
+  CC       zfcp.lo
+  CC       con1052c.lo
+  CC       printer.lo
+  CC       sockdev.lo
+  CC       commadpt.lo
+  CC       tcpnje.lo
+  CC       comm3705.lo
+../tcpnje.c:1459:21: warning: format specifies type 'unsigned long long' but the argument has type 'pthread_t _Nonnull' (aka 'struct _opaque_pthread_t *') [-Wformat]
+            devnum, thread_id(), guest_to_host_string(lnodestring, sizeof(lnodestring), tn->lnode),
+            ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../hthreads.h:372:49: note: expanded from macro 'thread_id'
+#define thread_id()                             hthread_self()
+                                                ^~~~~~~~~~~~~~
+../hthreads.h:199:49: note: expanded from macro 'hthread_self'
+#define hthread_self()                          pthread_self()
+                                                ^~~~~~~~~~~~~~
+../tcpnje.c:98:109: note: expanded from macro 'DBGMSG'
+#define DBGMSG(_level, ...) if ((tn->dev->ccwtrace && (_level & tn->trace)) || (_level & tn->debug)) logmsg(__VA_ARGS__)
+                                                                                                            ^~~~~~~~~~~
+../tcpnje.c:1848:48: warning: format specifies type 'long' but the argument has type '__darwin_suseconds_t' (aka 'int') [-Wformat]
+                        devnum, tvcopy.tv_sec, tvcopy.tv_usec);
+                                               ^~~~~~~~~~~~~~
+../tcpnje.c:98:109: note: expanded from macro 'DBGMSG'
+#define DBGMSG(_level, ...) if ((tn->dev->ccwtrace && (_level & tn->trace)) || (_level & tn->debug)) logmsg(__VA_ARGS__)
+                                                                                                            ^~~~~~~~~~~
+  CC       ctc_lcs.lo
+  CC       ctc_ctci.lo
+2 warnings generated.
+  CC       ctcadpt.lo
+  CC       netsupp.lo
+  CC       console.lo
+  CC       cardrdr.lo
+  CC       hchan.lo
+  CC       dummydev.lo
+  CC       cardpch.lo
+  CCLD     libhercs.la
+  CCLD     libhercu.la
+  CCLD     libherct.la
+  CCLD     libhercd.la
+  CCLD     libherc.la
+  CCLD     libhdt3420_not_mod.la
+  CCLD     hercules
+  CCLD     herclin
+  CCLD     dyncrypt.la
+  CCLD     dyngui.la
+  CCLD     hdteq.la
+  CCLD     hdtptp.la
+  CCLD     hdtqeth.la
+  CCLD     hdtzfcp.la
+  CCLD     hdt1052c.la
+  CCLD     hdt1403.la
+  CCLD     hdt2703.la
+  CCLD     hdttcpnje.la
+  CCLD     hdt3705.la
+  CCLD     hdt3088.la
+  CCLD     hdt3270.la
+  CCLD     hdt3420.la
+  CCLD     hdt3505.la
+  CCLD     hdt2880.la
+  CCLD     hdtdummy.la
+  CCLD     hdt3525.la
+  CCLD     cckdcdsk
+  CCLD     cckdcomp
+  CCLD     cckddiag
+  CCLD     cckdswap
+  CCLD     cckdcdsk64
+  CCLD     cckdcomp64
+  CCLD     cckddiag64
+  CCLD     cckdswap64
+  CCLD     convto64
+  CCLD     cckdmap
+  CCLD     dasdcat
+  CCLD     dasdconv
+  CCLD     dasdcopy
+  CCLD     dasdinit
+  CCLD     dasdconv64
+  CCLD     dasdcopy64
+  CCLD     dasdinit64
+  CCLD     dasdisup
+  CCLD     dasdload
+  CCLD     dasdload64
+  CCLD     dasdls
+  CCLD     dasdpdsu
+  CCLD     dasdseq
+  CCLD     dasdser
+  CCLD     dmap2hrc
+  CCLD     hetget
+  CCLD     hetinit
+  CCLD     hetmap
+  CCLD     hetupd
+  CCLD     maketape
+  CCLD     tapecopy
+  CCLD     tapemap
+  CCLD     tapesplt
+  CCLD     tfprint
+  CCLD     tfswap
+  CCLD     txt2card
+  CCLD     vmfplc2
+  CCLD     hercifc
+
+real	2m42.967s
+user	3m55.754s
+sys	0m51.340s
+-----------------------------------------------------------------
+
+Step: tests:  Hit return to continue
+Be patient, this can take a while with no output.
+
+********************
+Memory size = 6144
+********************
+
+Making check in m4
+make[1]: Nothing to be done for `check'.
+Making check in util
+make[1]: Nothing to be done for `check'.
+Making check in html
+make[1]: Nothing to be done for `check'.
+Making check in man
+make[1]: Nothing to be done for `check'.
+Making check in .
+make[1]: Nothing to be done for `check-am'.
+../tests/runtest  ../tests
+Files: ../tests/1403.tst ../tests/3211.tst ../tests/CBUC.tst ../tests/CCW-ILS.tst ../tests/CDSG.tst ../tests/CLCL-et-al.tst ../tests/CLCL.tst ../tests/CLCLE-01-unaligned-buffers.tst ../tests/CLCLE-02-unaligned-buffers.tst ../tests/CLCLE-03-basic.tst ../tests/CLCLE-04-performance.tst ../tests/CMPSC.tst ../tests/CUSE-01-basic.tst ../tests/CUSE-02-performance.tst ../tests/FAC53.tst ../tests/FAC5861.tst ../tests/PERZAD.tst ../tests/SRSTU.tst ../tests/TRE-01-basic.tst ../tests/TRE-02-performance.tst ../tests/TRTE-01-basic.tst ../tests/TRTE-02-performance.tst ../tests/TRTR-01-basic.tst ../tests/TRTR-02-performance.tst ../tests/TRTRE-01-basic.tst ../tests/TRTRE-02-performance.tst ../tests/TXFPER.tst ../tests/agf.tst ../tests/awsbsf.tst ../tests/bc-ilc.tst ../tests/bfp-001-divtoint.tst ../tests/bfp-002-loadr.tst ../tests/bfp-003-loadfpi.tst ../tests/bfp-004-cvttolog.tst ../tests/bfp-005-cvttolog64.tst ../tests/bfp-006-cvttofix.tst ../tests/bfp-007-cvttofix64.tst ../tests/bfp-008-cvtfrlog.tst ../tests/bfp-009-cvtfrlog64.tst ../tests/bfp-010-cvtfrfix.tst ../tests/bfp-011-cvtfrfix64.tst ../tests/bfp-012-loadtest.tst ../tests/bfp-013-comps.tst ../tests/bfp-014-divide.tst ../tests/bfp-015-sqrt.tst ../tests/bfp-016-add.tst ../tests/bfp-017-loadl.tst ../tests/bfp-018-subtract.tst ../tests/bfp-019-multiply.tst ../tests/bfp-020-multlonger.tst ../tests/bfp-021-multadd.tst ../tests/bfp-022-multsub.tst ../tests/bim-001-add-sub.tst ../tests/cipher.tst ../tests/cr.tst ../tests/csxtr.tst ../tests/dfp-080-from-packed.tst ../tests/dfp-080-to-packed.tst ../tests/digest.tst ../tests/fix-page.tst ../tests/float.tst ../tests/hetbsf.tst ../tests/ifelse.tst ../tests/ilc.tst ../tests/invpsw.tst ../tests/kimd-hw.tst ../tests/klmd-hw.tst ../tests/km-hw.tst ../tests/kmac-hw.tst ../tests/kmc-hw.tst ../tests/kmctr-hw.tst ../tests/kmf-hw.tst ../tests/kmo-hw.tst ../tests/leapfrog.tst ../tests/logicimm.tst ../tests/mainsize.tst ../tests/mhi.tst ../tests/mvcle.tst ../tests/mvcos-001.tst ../tests/pfpo.tst ../tests/pr.tst ../tests/privop.tst ../tests/problem.tst ../tests/runtest0.tst ../tests/runtest4.tst ../tests/semipriv.tst ../tests/sigp.tst ../tests/skey370.tst ../tests/skey390z.tst ../tests/sske.tst ../tests/stfl.tst ../tests/stidp-force.tst ../tests/stidp.tst ../tests/str-001-cksm.tst ../tests/str-001-clst.tst ../tests/str-001-mvst.tst ../tests/str-001-srst.tst ../tests/tape.tst ../tests/timeout.tst ../tests/wild.tst ../tests/zeos.tst
+Variable $ptrsize            set to "8"
+Variable $platform           set to "Darwin"
+Variable $can_s370_mode      set to "1"
+Variable $can_esa390_mode    set to "1"
+Variable $can_zarch_mode     set to "1"
+Variable $max_cpu_engines    set to "128"
+Variable $libraries          set to "Shared"
+Variable $threading_model    set to "POSIX"
+Variable $locking_model      set to "Error"
+Variable $shared_devices     set to "1"
+Variable $HDL                set to "1"
+Variable $externalgui        set to "1"
+Variable $keepalive          set to "Partial"
+Variable $IPV6               set to "1"
+Variable $HTTP               set to "1"
+Variable $sqrtl              set to "1"
+Variable $sighandling        set to "1"
+Variable $CCKD_BZIP2         set to "1"
+Variable $HET_BZIP2          set to "1"
+Variable $ZLIB               set to "1"
+Variable $regex              set to "1"
+Variable $rexx_supported     set to "0"
+Variable $rexx_supported     set to "1"
+Variable $HAO                set to "1"
+Variable $NLS                set to "0"
+Variable $cmpxchg1           set to "1"
+Variable $cmpxchg4           set to "1"
+Variable $cmpxchg8           set to "1"
+Variable $cmpxchg16          set to "1"
+Variable $hatomics           set to "C11"
+Variable $rexx_package       set to "Regina"
+Variable $rexx_VERSION       set to "REXX-Regina_3.6(MT) 5.00 31 Dec 2011"
+Variable $rexx_SOURCE        set to "UNIX"
+Variable $rexx_Mode          set to "Command"
+Variable $rexx_MsgLevel      set to "0"
+Variable $rexx_MsgPrefix     set to "0"
+Variable $rexx_ErrPrefix     set to "0"
+Variable $rexx_Resolver      set to "1"
+Variable $rexx_SysPath       set to "1"
+Variable $rexx_RexxPath      set to ""
+Variable $rexx_Extensions    set to ".rexx:.rex:.cmd:.rx"
+Test "1403 printer Load UCS Buffer":  2 OK compares.  All pass.
+Test "3211 printer (Regina)":  2 OK compares.  All pass.
+Test "CBUC (Concurrent Block Update Consistency)":  2 OK compares.  All pass.
+Test "CCW-ILS (CCW Incorrect Length Suppression)":  2 OK compares.  All pass.
+Test "cmpxchg16 as used by CDSG, STPQ and LPQ instructions":  2 OK compares.  All pass.
+Test "CLCL-et-al (Test CLCL, MVCIN and TRT instructions)":  1 OK compares.  All pass.
+Test "CLCL Unaligned Buffers Test":  1 OK compares.  All pass.
+Test "CLCLE-01-unaligned-buffers Test":  1 OK compares.  All pass.
+Test "CLCLE-02-unaligned-buffers Test":  1 OK compares.  All pass.
+Test "CLCLE-03-basic (Test CLCLE instructions)":  1 OK compares.  All pass.
+Test "CLCLE-04-performance (Test CLCLE instructions)":  1 OK compares.  All pass.
+Test "CMPSC (Compression Call)":  1 OK compares.  All pass.
+Test "CUSE-01-basic (Test CUSE instruction)":  1 OK compares.  All pass.
+Test "CUSE-02-performance (Test CUSE instruction)":  1 OK compares.  All pass.
+Test "Facility 53 Instructions":  1 OK compares.  All pass.
+Test "FAC5861: Quick Test of Misc. Instr. Ext. 2 & 3":  1 OK compares.  All pass.
+Test "PERZAD: Quick PER Zero-Address Detection test":  1 OK compares.  All pass.
+Test "SRSTU: Simple Search String Unicode test":  1 OK compares.  All pass.
+Test "TRE-01-basic (Test TRE instructions)":  1 OK compares.  All pass.
+Test "TRE-02-performance (Test TRE instructions)":  1 OK compares.  All pass.
+Test "TRTE-01-basic (Test TRTE instruction)":  1 OK compares.  All pass.
+Test "TRTE-02-performance (Test TRTE instruction)":  1 OK compares.  All pass.
+Test "TRTR-01-basic (Test TRTR instruction)":  1 OK compares.  All pass.
+Test "TRTR-02-performance (Test TRTR instruction)":  1 OK compares.  All pass.
+Test "TRTRE-01-basic (Test TRTRE instruction)":  1 OK compares.  All pass.
+Test "TRTRE-02-performance (Test TRTRE instruction)":  1 OK compares.  All pass.
+Test "TXFPER: Test PER Tracing of TXF Transactions":  1 OK compares.  All pass.
+Test "agf 20161211 12.44":  10 OK compares.  All pass.
+Test "S/370 AWS tape BSF into Load Point":  5 OK compares.  All pass.
+Test "BC-mode ILC Handling":  4 OK compares.  All pass.
+Test "bfp-001-divtoint: Test IEEE Divide To Integer":  1 OK compares.  All pass.
+Test "bfp-002-loadr: Test IEEE Load Rounded":  1 OK compares.  All pass.
+Test "bfp-003-loadfpi: Test IEEE Load FP Integer":  1 OK compares.  All pass.
+Test "bfp-004-cvttolog: Test IEEE Convert To Logical (uint-32)":  1 OK compares.  All pass.
+Test "bfp-005-cvttolog64: Test IEEE Cvt To Logical (uint-64)":  1 OK compares.  All pass.
+Test "bfp-006-cvttofix: Test IEEE Convert To Fixed (int-32)":  1 OK compares.  All pass.
+Test "bfp-007-cvttofix64: Test IEEE Convert To Fixed (int-64)":  1 OK compares.  All pass.
+Test "bfp-008-cvtfrlog: Test IEEE Convert From Fixed (uint-32)":  1 OK compares.  All pass.
+Test "bfp-009-cvtfrlog64: Test IEEE Cvt From Fixed (uint-64)":  1 OK compares.  All pass.
+Test "bfp-010-cvtfrfix: Test IEEE Convert From Fixed (int-32)":  1 OK compares.  All pass.
+Test "bfp-011-cvtfrfix64: Test IEEE Cvt From Fixed (int-64)":  1 OK compares.  All pass.
+Test "bfp-012-loadtest: Test IEEE Test Data Class, Load And Test":  1 OK compares.  All pass.
+Test "bfp-013-comps: Test IEEE Compare, Compare And Signal":  1 OK compares.  All pass.
+Test "bfp-014-divide: Test IEEE Divide":  1 OK compares.  All pass.
+Test "bfp-015-sqrt: Test IEEE Square Root":  1 OK compares.  All pass.
+Test "bfp-016-add: Test IEEE Add":  1 OK compares.  All pass.
+Test "bfp-017-loadl: Test IEEE Load Lengthened":  1 OK compares.  All pass.
+Test "bfp-018-subtract: Test IEEE Subtract":  1 OK compares.  All pass.
+Test "bfp-019-multiply: Test IEEE Multiply":  1 OK compares.  All pass.
+Test "bfp-020-multlonger: Test IEEE Multiply":  1 OK compares.  All pass.
+Test "bfp-021-multadd: Test IEEE Multiply And Add":  1 OK compares.  All pass.
+Test "bfp-022-multsub: Test IEEE Multiply And Subtract":  1 OK compares.  All pass.
+Test "bim-001-add-sub: Test Basic Integer Math Add & Subtract":  1 OK compares.  All pass.
+Test "cipher 20161202 12.03":  305 OK compares.  All pass.
+Test "Initial control register values":  9 OK compares.  All pass.
+Test "csxtr csdtr cxstr cxutr 20160605 09.38":  8 OK compares.  All pass.
+Test "dfp-080-from-packed.tst:   CDPT, CXPT":  162 OK compares.  All pass.
+Test "dfp-080-to-packed.tst:   CPDT, CPXT":  393 OK compares.  All pass.
+Test "digest 20161202 12.03":  57 OK compares.  All pass.
+Test "fix-page: Test the Fix Page E502 Assist":  1 OK compares.  All pass.
+Test "HFP Floating Point (370, no AFP, no EXTENSION)":  6 OK compares.  All pass.
+Test "HFP Floating Point (370, with AFP, no EXTENSION)":  6 OK compares.  All pass.
+Test "HFP Floating Point (370, no AFP, with EXTENSION)":  6 OK compares.  All pass.
+Test "HFP Floating Point (370, with AFP, with EXTENSION)":  6 OK compares.  All pass.
+Test "HFP Floating Point (z/Arch, no AFP)":  6 OK compares.  All pass.
+Test "HFP Floating Point (z/Arch, with AFP enabled)":  6 OK compares.  All pass.
+Test "S/370 HET (ZLIB) tape BSF into Load Point":  5 OK compares.  All pass.
+Test "S/370 HET (BZIP2) tape BSF into Load Point":  5 OK compares.  All pass.
+Test "IF-ELSE-01":  2 OK compares.  All pass.
+Test "IF-ELSE-02":  2 OK compares.  All pass.
+Test "IF-ELSE-03":  2 OK compares.  All pass.
+Test "IF-ELSE-04":  2 OK compares.  All pass.
+Test "IF-ELSE-05":  2 OK compares.  All pass.
+Test "IF-ELSE-06":  2 OK compares.  All pass.
+Test "IF-ELSE-07":  2 OK compares.  All pass.
+Test "ilc":  3 OK compares.  All pass.
+Test "invpsw processed 16 Jan 2016 12:11:11 by bldhtc.rexx":  1 OK compares.  All pass.
+Test "KIMD fc0":  2 OK compares.  All pass.
+Test "KIMD fc1":  3 OK compares.  All pass.
+Test "KIMD fc2":  3 OK compares.  All pass.
+Test "KIMD fc3":  5 OK compares.  All pass.
+Test "KIMD fc65":  2 OK compares.  All pass.
+Test "KLMD fc0":  2 OK compares.  All pass.
+Test "KLMD fc1":  3 OK compares.  All pass.
+Test "KLMD fc2":  3 OK compares.  All pass.
+Test "KLMD fc3":  5 OK compares.  All pass.
+Test "KM fc0":  2 OK compares.  All pass.
+Test "KM fc1":  3 OK compares.  All pass.
+Test "KM fc2":  3 OK compares.  All pass.
+Test "KM fc3":  3 OK compares.  All pass.
+Test "KM fc9":  3 OK compares.  All pass.
+Test "KM fc10":  3 OK compares.  All pass.
+Test "KM fc11":  3 OK compares.  All pass.
+Test "KM fc18":  3 OK compares.  All pass.
+Test "KM fc19":  3 OK compares.  All pass.
+Test "KM fc20":  3 OK compares.  All pass.
+Test "KM fc26":  3 OK compares.  All pass.
+Test "KM fc27":  3 OK compares.  All pass.
+Test "KM fc28":  3 OK compares.  All pass.
+Test "KM fc50":  3 OK compares.  All pass.
+Test "KM fc52":  3 OK compares.  All pass.
+Test "KM fc58":  3 OK compares.  All pass.
+Test "KM fc60":  3 OK compares.  All pass.
+Test "KMAC fc0":  2 OK compares.  All pass.
+Test "KMAC fcbad":  2 OK compares.  All pass.
+Test "KMAC fc1":  2 OK compares.  All pass.
+Test "KMAC fc2":  2 OK compares.  All pass.
+Test "KMAC fc3":  2 OK compares.  All pass.
+Test "KMAC fc9":  2 OK compares.  All pass.
+Test "KMAC fc10":  2 OK compares.  All pass.
+Test "KMAC fc11":  2 OK compares.  All pass.
+Test "KMAC fc18":  2 OK compares.  All pass.
+Test "KMAC fc19":  2 OK compares.  All pass.
+Test "KMAC fc20":  2 OK compares.  All pass.
+Test "KMAC fc26":  2 OK compares.  All pass.
+Test "KMAC fc27":  2 OK compares.  All pass.
+Test "KMAC fc28":  2 OK compares.  All pass.
+Test "KMC fc0":  2 OK compares.  All pass.
+Test "KMC bad":  2 OK compares.  All pass.
+Test "KMC badreg0":  2 OK compares.  All pass.
+Test "KMC badreg3":  2 OK compares.  All pass.
+Test "KMC fc1":  3 OK compares.  All pass.
+Test "KMC fc2":  3 OK compares.  All pass.
+Test "KMC fc3":  3 OK compares.  All pass.
+Test "KMC fc9":  3 OK compares.  All pass.
+Test "KMC fc10":  3 OK compares.  All pass.
+Test "KMC fc11":  3 OK compares.  All pass.
+Test "KMC fc18":  3 OK compares.  All pass.
+Test "KMC fc19":  3 OK compares.  All pass.
+Test "KMC fc20":  3 OK compares.  All pass.
+Test "KMC fc26":  3 OK compares.  All pass.
+Test "KMC fc27":  3 OK compares.  All pass.
+Test "KMC fc28":  3 OK compares.  All pass.
+Test "KMC fc67":  3 OK compares.  All pass.
+Test "KMCTR fc0":  2 OK compares.  All pass.
+Test "KMCTR bad":  2 OK compares.  All pass.
+Test "KMCTR fc1":  3 OK compares.  All pass.
+Test "KMCTR fc2":  3 OK compares.  All pass.
+Test "KMCTR fc3":  3 OK compares.  All pass.
+Test "KMCTR fc9":  3 OK compares.  All pass.
+Test "KMCTR fc10":  3 OK compares.  All pass.
+Test "KMCTR fc11":  3 OK compares.  All pass.
+Test "KMCTR fc18":  2 OK compares.  All pass.
+Test "KMCTR fc19":  2 OK compares.  All pass.
+Test "KMCTR fc20":  2 OK compares.  All pass.
+Test "KMCTR fc26":  3 OK compares.  All pass.
+Test "KMCTR fc27":  3 OK compares.  All pass.
+Test "KMCTR fc28":  3 OK compares.  All pass.
+Test "KMF fc0":  2 OK compares.  All pass.
+Test "KMF bad":  2 OK compares.  All pass.
+Test "KMF fc1":  3 OK compares.  All pass.
+Test "KMF fc2":  3 OK compares.  All pass.
+Test "KMF fc3":  3 OK compares.  All pass.
+Test "KMF fc9":  3 OK compares.  All pass.
+Test "KMF fc10":  3 OK compares.  All pass.
+Test "KMF fc11":  3 OK compares.  All pass.
+Test "KMF fc18":  3 OK compares.  All pass.
+Test "KMF fc19":  3 OK compares.  All pass.
+Test "KMF fc20":  3 OK compares.  All pass.
+Test "KMF fc26":  3 OK compares.  All pass.
+Test "KMF fc27":  3 OK compares.  All pass.
+Test "KMF fc28":  3 OK compares.  All pass.
+Test "KMO fc0":  2 OK compares.  All pass.
+Test "KMO bad":  2 OK compares.  All pass.
+Test "KMO fc1":  3 OK compares.  All pass.
+Test "KMO fc2":  3 OK compares.  All pass.
+Test "KMO fc3":  3 OK compares.  All pass.
+Test "KMO fc9":  3 OK compares.  All pass.
+Test "KMO fc10":  3 OK compares.  All pass.
+Test "KMO fc11":  3 OK compares.  All pass.
+Test "KMO fc18":  3 OK compares.  All pass.
+Test "KMO fc19":  3 OK compares.  All pass.
+Test "KMO fc20":  3 OK compares.  All pass.
+Test "KMO fc26":  3 OK compares.  All pass.
+Test "KMO fc27":  3 OK compares.  All pass.
+Test "KMO fc28":  3 OK compares.  All pass.
+Test "leapfrog processed 16 Jan 2016 12:11:11 by bldhtc.rexx":  3 OK compares.  All pass.
+Test "logicImmediate processed 12 Nov 2015 12:36:58 by bldhtc.rexx":  17 OK compares.  All pass.
+Test "mainsize check storage size":  26 OK compares.  All pass.
+Test "mhi":  4 OK compares.  All pass.
+Test "mvcle-370":  3 OK compares.  All pass.
+Test "mvcos-001.tst:":  1 OK compares.  All pass.
+Test "PFPO    ORIGINAL":  2 OK compares.  All pass.
+Test "PFPO    TRUNCATED":  2 OK compares.  All pass.
+Test "z/Arch prefix register and real/absolute storage set/display":  10 OK compares.  All pass.
+Test "ESA/390 prefix register and real/absolute storage set/display":  10 OK compares.  All pass.
+Test "S/370 prefix register and real/absolute storage set/display":  10 OK compares.  All pass.
+Test "privopisk":  2 OK compares.  All pass.
+Test "privopiske":  2 OK compares.  All pass.
+Test "privopgo":  3 OK compares.  All pass.
+Test "problem":  2 OK compares.  All pass.
+Test "runtest0: all cpus 0 seconds":  5 OK compares.  All pass.
+Test "runtest4: all cpus 1-4 seconds":  5 OK compares.  All pass.
+Test "semipriv":  5 OK compares.  All pass.
+Test "sigp":  1 OK compares.  All pass.
+Test "Storage Keys: pure System/370 only":  1 OK compares.  All pass.
+Test "Storage Keys: S/390 then z/Arch":  1 OK compares.  All pass.
+Test "Storage Keys: Pure z/Arch only":  1 OK compares.  All pass.
+Test "sske#1":  2 OK compares.  All pass.
+Test "sske#2":  53 OK compares.  All pass.
+Test "STFL and STFLE":  6 OK compares.  All pass.
+Test "cpuverid FORCE (z/Arch LPAR FMT-0)":  2 OK compares.  All pass.
+Test "S/370  BASIC  FMT-0  CPUs = 1":  2 OK compares.  All pass.
+Test "S/370  BASIC  FMT-1  CPUs = 1":  2 OK compares.  All pass.
+Test "S/370  LPAR  FMT-0  CPUs = 1":  2 OK compares.  All pass.
+Test "S/370  LPAR  FMT-1  CPUs = 1":  2 OK compares.  All pass.
+Test "S/370  BASIC  FMT-0  CPUs = 2":  2 OK compares.  All pass.
+Test "S/370  BASIC  FMT-1  CPUs = 2":  2 OK compares.  All pass.
+Test "S/370  LPAR  FMT-0  CPUs = 2":  2 OK compares.  All pass.
+Test "S/370  LPAR  FMT-1  CPUs = 2":  2 OK compares.  All pass.
+Test "ESA/390  BASIC  FMT-0  CPUs = 1":  2 OK compares.  All pass.
+Test "ESA/390  BASIC  FMT-1  CPUs = 1":  2 OK compares.  All pass.
+Test "ESA/390  LPAR  FMT-0  CPUs = 1":  2 OK compares.  All pass.
+Test "ESA/390  LPAR  FMT-1  CPUs = 1":  2 OK compares.  All pass.
+Test "ESA/390  BASIC  FMT-0  CPUs = 2":  2 OK compares.  All pass.
+Test "ESA/390  BASIC  FMT-1  CPUs = 2":  2 OK compares.  All pass.
+Test "ESA/390  LPAR  FMT-0  CPUs = 2":  2 OK compares.  All pass.
+Test "ESA/390  LPAR  FMT-1  CPUs = 2":  2 OK compares.  All pass.
+Test "z/Arch  BASIC  FMT-0  CPUs = 1":  2 OK compares.  All pass.
+Test "z/Arch  BASIC  FMT-1  CPUs = 1":  2 OK compares.  All pass.
+Test "z/Arch  LPAR  FMT-0  CPUs = 1":  2 OK compares.  All pass.
+Test "z/Arch  LPAR  FMT-1  CPUs = 1":  2 OK compares.  All pass.
+Test "z/Arch  BASIC  FMT-0  CPUs = 2":  2 OK compares.  All pass.
+Test "z/Arch  BASIC  FMT-1  CPUs = 2":  2 OK compares.  All pass.
+Test "z/Arch  LPAR  FMT-0  CPUs = 2":  2 OK compares.  All pass.
+Test "z/Arch  LPAR  FMT-1  CPUs = 2":  2 OK compares.  All pass.
+Test "str-001-cksm: Test CKSM Instruction":  1 OK compares.  All pass.
+Test "str-001-clst: Test CLST Instruction":  1 OK compares.  All pass.
+Test "str-001-mvst: Test MVST Instruction":  1 OK compares.  All pass.
+Test "str-001-srst: Test SRST Instruction":  1 OK compares.  All pass.
+Test "Tape Data Chaining":  2 OK compares.  All pass.
+Test "timeout":  1 OK compares.  All pass.
+Test "multix":  2 OK compares.  All pass.
+Test "multix1":  2 OK compares.  All pass.
+Test "zeos":  6 OK compares.  All pass.
+Did 235 tests.  All OK.
+
+real	0m46.440s
+user	0m49.971s
+sys	0m8.130s
+-----------------------------------------------------------------
+
+Step: install [with sudo]:  Hit return to continue
+Making install in m4
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+Making install in util
+ ../../autoconf/install-sh -c -d '/usr/local/bin'
+ /usr/bin/install -c ../../util/dasdlist '/usr/local/bin'
+ ../../autoconf/install-sh -c -d '/usr/local/share/hercules'
+ /usr/bin/install -c -m 644 ../../util/awssl-v19g ../../util/awswrite.jcl ../../util/rawstape.jcl ../../util/scsiboot ../../util/tapeconv.jcl ../../util/TMOUNT.txt ../../util/CMPSC.txt ../../util/zzsacard.bin ../../util/cckddump-cckdload.zip '/usr/local/share/hercules'
+Making install in html
+make[2]: Nothing to be done for `install-exec-am'.
+ ../../autoconf/install-sh -c -d '/usr/local/share/hercules/images'
+ /usr/bin/install -c -m 644 ../../html/images/back.gif ../../html/images/bkued.gif ../../html/images/blueu.gif ../../html/images/dial1.gif ../../html/images/dial2.gif ../../html/images/dial3.gif ../../html/images/dial4.gif ../../html/images/favicon.ico ../../html/images/greend.gif ../../html/images/greenu.gif ../../html/images/hercpic-rblk-256.gif ../../html/images/hercpic-rblk-80.gif ../../html/images/interruptd.gif ../../html/images/interruptu.gif ../../html/images/loadd.gif ../../html/images/loadoffu.gif ../../html/images/loadonu.gif ../../html/images/loadu.gif ../../html/images/manoffu.gif ../../html/images/manonu.gif ../../html/images/note.gif ../../html/images/osi-certified-60x50.jpg ../../html/images/poweroffd.gif ../../html/images/poweroffu.gif ../../html/images/poweronoffd.gif ../../html/images/poweronoffu.gif ../../html/images/poweronond.gif ../../html/images/powerononu.gif ../../html/images/redd.gif ../../html/images/redu.gif ../../html/images/restartd.gif ../../html/images/restartu.gif ../../html/images/startd.gif ../../html/images/startu.gif ../../html/images/stopd.gif ../../html/images/stopu.gif ../../html/images/stored.gif ../../html/images/storeu.gif ../../html/images/sysoffu.gif ../../html/images/sysonu.gif '/usr/local/share/hercules/images'
+ /usr/bin/install -c -m 644 ../../html/images/telnetputtyconndata.png ../../html/images/telnetputtysession.png ../../html/images/telnetputtyterminal.png ../../html/images/telnetwin.png ../../html/images/telnetwinntconnect.png ../../html/images/telnetwinnttermpref.png ../../html/images/translucentoffd.gif ../../html/images/translucentoffu.gif ../../html/images/translucentond.gif ../../html/images/translucentonu.gif ../../html/images/waitoffu.gif ../../html/images/waitonu.gif '/usr/local/share/hercules/images'
+ ../../autoconf/install-sh -c -d '/usr/local/share/hercules/include'
+ /usr/bin/install -c -m 644 ../../html/include/footer.htmlpart ../../html/include/header.htmlpart '/usr/local/share/hercules/include'
+ ../../autoconf/install-sh -c -d '/usr/local/share/hercules'
+ /usr/bin/install -c -m 644 ../../html/cckddasd.html ../../html/fishgui.html ../../html/hercconf.html ../../html/hercfaq.html ../../html/hercinst.html ../../html/herclic.html ../../html/hercload.html ../../html/hercmsca.html ../../html/hercmscf.html ../../html/hercmscp.html ../../html/hercmsct.html ../../html/hercmscu.html ../../html/hercmsda.html ../../html/hercmsdc.html ../../html/hercmsdg.html ../../html/hercmsdi.html ../../html/hercmsdl.html ../../html/hercmsdn.html ../../html/hercmsds.html ../../html/hercmsdt.html ../../html/hercmsdu.html ../../html/hercmsg.html ../../html/hercmshd.html ../../html/hercmshe.html ../../html/hercmshg.html ../../html/hercmshm.html ../../html/hercmsht.html ../../html/hercmshu.html ../../html/hercmsif.html ../../html/hercmsin.html ../../html/hercmslc.html ../../html/hercmslg.html ../../html/hercmspn.html ../../html/hercmspr.html ../../html/hercmspu.html ../../html/hercmsrd.html ../../html/hercmssd.html ../../html/hercmsta.html ../../html/hercmstc.html ../../html/hercmste.html '/usr/local/share/hercules'
+ /usr/bin/install -c -m 644 ../../html/hercmstm.html ../../html/hercmsts.html ../../html/hercmstt.html ../../html/hercmstu.html ../../html/hercmsvm.html ../../html/hercnew.html ../../html/hercrdr.html ../../html/hercrnot.html ../../html/hercsupp.html ../../html/herctcp.html ../../html/hercules.css ../../html/hercules.html ../../html/index.html ../../html/rexx.html ../../html/shared.html ../../html/tasks.html ../../html/telnet.html '/usr/local/share/hercules'
+Making install in man
+make[2]: Nothing to be done for `install-exec-am'.
+ ../../autoconf/install-sh -c -d '/usr/local/share/man/man1'
+ /usr/bin/install -c -m 644 ../../man/cckddiag.1 ../../man/dasdseq.1 ../../man/vmfplc2.1 '/usr/local/share/man/man1'
+ ../../autoconf/install-sh -c -d '/usr/local/share/man/man4'
+ /usr/bin/install -c -m 644 ../../man/cckd.4 '/usr/local/share/man/man4'
+Making install in .
+ ../autoconf/install-sh -c -d '/usr/local/lib'
+ /bin/sh ./libtool   --mode=install /usr/bin/install -c   libhercs.la libhercu.la libherct.la libhercd.la libherc.la libhdt3420_not_mod.la '/usr/local/lib'
+libtool: install: /usr/bin/install -c .libs/libhercs.dylib /usr/local/lib/libhercs.dylib
+libtool: install: /usr/bin/install -c .libs/libhercs.lai /usr/local/lib/libhercs.la
+libtool: install: /usr/bin/install -c .libs/libhercu.dylib /usr/local/lib/libhercu.dylib
+libtool: install: /usr/bin/install -c .libs/libhercu.lai /usr/local/lib/libhercu.la
+libtool: install: /usr/bin/install -c .libs/libherct.dylib /usr/local/lib/libherct.dylib
+libtool: install: /usr/bin/install -c .libs/libherct.lai /usr/local/lib/libherct.la
+libtool: install: /usr/bin/install -c .libs/libhercd.dylib /usr/local/lib/libhercd.dylib
+libtool: install: /usr/bin/install -c .libs/libhercd.lai /usr/local/lib/libhercd.la
+libtool: install: /usr/bin/install -c .libs/libherc.dylib /usr/local/lib/libherc.dylib
+libtool: install: /usr/bin/install -c .libs/libherc.lai /usr/local/lib/libherc.la
+libtool: install: /usr/bin/install -c .libs/libhdt3420_not_mod.dylib /usr/local/lib/libhdt3420_not_mod.dylib
+libtool: install: /usr/bin/install -c .libs/libhdt3420_not_mod.lai /usr/local/lib/libhdt3420_not_mod.la
+ ../autoconf/install-sh -c -d '/usr/local/bin'
+  /bin/sh ./libtool   --mode=install /usr/bin/install -c cckdcdsk cckdcomp cckddiag cckdswap cckdcdsk64 cckdcomp64 cckddiag64 cckdswap64 convto64 cckdmap dasdcat dasdconv dasdcopy dasdinit dasdconv64 dasdcopy64 dasdinit64 dasdisup dasdload dasdload64 dasdls dasdpdsu dasdseq dasdser dmap2hrc hercules hetget hetinit hetmap hetupd maketape tapecopy tapemap tapesplt tfprint tfswap txt2card vmfplc2 hercifc herclin '/usr/local/bin'
+libtool: install: /usr/bin/install -c .libs/cckdcdsk /usr/local/bin/cckdcdsk
+libtool: install: /usr/bin/install -c .libs/cckdcomp /usr/local/bin/cckdcomp
+libtool: install: /usr/bin/install -c .libs/cckddiag /usr/local/bin/cckddiag
+libtool: install: /usr/bin/install -c .libs/cckdswap /usr/local/bin/cckdswap
+libtool: install: /usr/bin/install -c .libs/cckdcdsk64 /usr/local/bin/cckdcdsk64
+libtool: install: /usr/bin/install -c .libs/cckdcomp64 /usr/local/bin/cckdcomp64
+libtool: install: /usr/bin/install -c .libs/cckddiag64 /usr/local/bin/cckddiag64
+libtool: install: /usr/bin/install -c .libs/cckdswap64 /usr/local/bin/cckdswap64
+libtool: install: /usr/bin/install -c .libs/convto64 /usr/local/bin/convto64
+libtool: install: /usr/bin/install -c .libs/cckdmap /usr/local/bin/cckdmap
+libtool: install: /usr/bin/install -c .libs/dasdcat /usr/local/bin/dasdcat
+libtool: install: /usr/bin/install -c .libs/dasdconv /usr/local/bin/dasdconv
+libtool: install: /usr/bin/install -c .libs/dasdcopy /usr/local/bin/dasdcopy
+libtool: install: /usr/bin/install -c .libs/dasdinit /usr/local/bin/dasdinit
+libtool: install: /usr/bin/install -c .libs/dasdconv64 /usr/local/bin/dasdconv64
+libtool: install: /usr/bin/install -c .libs/dasdcopy64 /usr/local/bin/dasdcopy64
+libtool: install: /usr/bin/install -c .libs/dasdinit64 /usr/local/bin/dasdinit64
+libtool: install: /usr/bin/install -c .libs/dasdisup /usr/local/bin/dasdisup
+libtool: install: /usr/bin/install -c .libs/dasdload /usr/local/bin/dasdload
+libtool: install: /usr/bin/install -c .libs/dasdload64 /usr/local/bin/dasdload64
+libtool: install: /usr/bin/install -c .libs/dasdls /usr/local/bin/dasdls
+libtool: install: /usr/bin/install -c .libs/dasdpdsu /usr/local/bin/dasdpdsu
+libtool: install: /usr/bin/install -c .libs/dasdseq /usr/local/bin/dasdseq
+libtool: install: /usr/bin/install -c .libs/dasdser /usr/local/bin/dasdser
+libtool: install: /usr/bin/install -c .libs/dmap2hrc /usr/local/bin/dmap2hrc
+libtool: install: /usr/bin/install -c .libs/hercules /usr/local/bin/hercules
+libtool: install: /usr/bin/install -c .libs/hetget /usr/local/bin/hetget
+libtool: install: /usr/bin/install -c .libs/hetinit /usr/local/bin/hetinit
+libtool: install: /usr/bin/install -c .libs/hetmap /usr/local/bin/hetmap
+libtool: install: /usr/bin/install -c .libs/hetupd /usr/local/bin/hetupd
+libtool: install: /usr/bin/install -c .libs/maketape /usr/local/bin/maketape
+libtool: install: /usr/bin/install -c .libs/tapecopy /usr/local/bin/tapecopy
+libtool: install: /usr/bin/install -c .libs/tapemap /usr/local/bin/tapemap
+libtool: install: /usr/bin/install -c .libs/tapesplt /usr/local/bin/tapesplt
+libtool: install: /usr/bin/install -c .libs/tfprint /usr/local/bin/tfprint
+libtool: install: /usr/bin/install -c .libs/tfswap /usr/local/bin/tfswap
+libtool: install: /usr/bin/install -c .libs/txt2card /usr/local/bin/txt2card
+libtool: install: /usr/bin/install -c .libs/vmfplc2 /usr/local/bin/vmfplc2
+libtool: install: /usr/bin/install -c .libs/hercifc /usr/local/bin/hercifc
+libtool: install: /usr/bin/install -c .libs/herclin /usr/local/bin/herclin
+ ../autoconf/install-sh -c -d '/usr/local/lib/hercules'
+ /bin/sh ./libtool   --mode=install /usr/bin/install -c   dyncrypt.la dyngui.la hdteq.la hdtptp.la hdtqeth.la hdtzfcp.la hdt1052c.la hdt1403.la hdt2703.la hdttcpnje.la hdt3705.la hdt3088.la hdt3270.la hdt3420.la hdt3505.la hdt2880.la hdtdummy.la hdt3525.la '/usr/local/lib/hercules'
+libtool: install: /usr/bin/install -c .libs/dyncrypt.so /usr/local/lib/hercules/dyncrypt.so
+libtool: install: /usr/bin/install -c .libs/dyncrypt.lai /usr/local/lib/hercules/dyncrypt.la
+libtool: install: /usr/bin/install -c .libs/dyngui.so /usr/local/lib/hercules/dyngui.so
+libtool: install: /usr/bin/install -c .libs/dyngui.lai /usr/local/lib/hercules/dyngui.la
+libtool: install: /usr/bin/install -c .libs/hdteq.so /usr/local/lib/hercules/hdteq.so
+libtool: install: /usr/bin/install -c .libs/hdteq.lai /usr/local/lib/hercules/hdteq.la
+libtool: install: /usr/bin/install -c .libs/hdtptp.so /usr/local/lib/hercules/hdtptp.so
+libtool: install: /usr/bin/install -c .libs/hdtptp.lai /usr/local/lib/hercules/hdtptp.la
+libtool: install: /usr/bin/install -c .libs/hdtqeth.so /usr/local/lib/hercules/hdtqeth.so
+libtool: install: /usr/bin/install -c .libs/hdtqeth.lai /usr/local/lib/hercules/hdtqeth.la
+libtool: install: /usr/bin/install -c .libs/hdtzfcp.so /usr/local/lib/hercules/hdtzfcp.so
+libtool: install: /usr/bin/install -c .libs/hdtzfcp.lai /usr/local/lib/hercules/hdtzfcp.la
+libtool: install: /usr/bin/install -c .libs/hdt1052c.so /usr/local/lib/hercules/hdt1052c.so
+libtool: install: /usr/bin/install -c .libs/hdt1052c.lai /usr/local/lib/hercules/hdt1052c.la
+libtool: install: /usr/bin/install -c .libs/hdt1403.so /usr/local/lib/hercules/hdt1403.so
+libtool: install: /usr/bin/install -c .libs/hdt1403.lai /usr/local/lib/hercules/hdt1403.la
+libtool: install: /usr/bin/install -c .libs/hdt2703.so /usr/local/lib/hercules/hdt2703.so
+libtool: install: /usr/bin/install -c .libs/hdt2703.lai /usr/local/lib/hercules/hdt2703.la
+libtool: install: /usr/bin/install -c .libs/hdttcpnje.so /usr/local/lib/hercules/hdttcpnje.so
+libtool: install: /usr/bin/install -c .libs/hdttcpnje.lai /usr/local/lib/hercules/hdttcpnje.la
+libtool: install: /usr/bin/install -c .libs/hdt3705.so /usr/local/lib/hercules/hdt3705.so
+libtool: install: /usr/bin/install -c .libs/hdt3705.lai /usr/local/lib/hercules/hdt3705.la
+libtool: install: /usr/bin/install -c .libs/hdt3088.so /usr/local/lib/hercules/hdt3088.so
+libtool: install: /usr/bin/install -c .libs/hdt3088.lai /usr/local/lib/hercules/hdt3088.la
+libtool: install: /usr/bin/install -c .libs/hdt3270.so /usr/local/lib/hercules/hdt3270.so
+libtool: install: /usr/bin/install -c .libs/hdt3270.lai /usr/local/lib/hercules/hdt3270.la
+libtool: install: /usr/bin/install -c .libs/hdt3420.so /usr/local/lib/hercules/hdt3420.so
+libtool: install: /usr/bin/install -c .libs/hdt3420.lai /usr/local/lib/hercules/hdt3420.la
+libtool: install: /usr/bin/install -c .libs/hdt3505.so /usr/local/lib/hercules/hdt3505.so
+libtool: install: /usr/bin/install -c .libs/hdt3505.lai /usr/local/lib/hercules/hdt3505.la
+libtool: install: /usr/bin/install -c .libs/hdt2880.so /usr/local/lib/hercules/hdt2880.so
+libtool: install: /usr/bin/install -c .libs/hdt2880.lai /usr/local/lib/hercules/hdt2880.la
+libtool: install: /usr/bin/install -c .libs/hdtdummy.so /usr/local/lib/hercules/hdtdummy.so
+libtool: install: /usr/bin/install -c .libs/hdtdummy.lai /usr/local/lib/hercules/hdtdummy.la
+libtool: install: /usr/bin/install -c .libs/hdt3525.so /usr/local/lib/hercules/hdt3525.so
+libtool: install: /usr/bin/install -c .libs/hdt3525.lai /usr/local/lib/hercules/hdt3525.la
+/Applications/Xcode.app/Contents/Developer/usr/bin/make  install-exec-hook
+rm -f /usr/local/lib/libherc*.a
+rm -f /usr/local/lib/hercules/dyn*.a
+rm -f /usr/local/lib/hercules/hdt*.a
+rm -f /usr/local/bin/fba2cfba
+(cd /usr/local/bin; ln -s ./dasdcopy fba2cfba)
+rm -f /usr/local/bin/ckd2cckd
+(cd /usr/local/bin; ln -s ./dasdcopy ckd2cckd)
+rm -f /usr/local/bin/cfba2fba
+(cd /usr/local/bin; ln -s ./dasdcopy cfba2fba)
+rm -f /usr/local/bin/cckd2ckd
+(cd /usr/local/bin; ln -s ./dasdcopy cckd2ckd)
+rm -f /usr/local/bin/fba2cfba64
+(cd /usr/local/bin; ln -s ./dasdcopy64 fba2cfba64)
+rm -f /usr/local/bin/ckd2cckd64
+(cd /usr/local/bin; ln -s ./dasdcopy64 ckd2cckd64)
+rm -f /usr/local/bin/cfba642fba
+(cd /usr/local/bin; ln -s ./dasdcopy64 cfba642fba)
+rm -f /usr/local/bin/cckd642ckd
+(cd /usr/local/bin; ln -s ./dasdcopy64 cckd642ckd)
+make[2]: Nothing to be done for `install-data-am'.
+       11.33 real         7.21 user         4.16 sys
+-----------------------------------------------------------------
+    
+Skipping step: setcap operations on Apple macOS.
+
+Clang: skipping readelf
+-----------------------------------------------------------------
+
+Overall build processing ended:   Sat Nov 11 15:58:28 EST 2023
+Total elapsed seconds: 349
+
+Step: create script to set environment variables [may require sudo]:  Hit return to continue
+Setting environment variables for Hercules
+Created: /usr/local/hyperion-init-bash.sh
+Done!
