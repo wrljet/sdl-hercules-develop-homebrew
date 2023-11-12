@@ -1,7 +1,7 @@
 # Documentation: https://docs.brew.sh/Formula-Cookbook
 #                https://rubydoc.brew.sh/Formula
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST
-class SdlHerculesDevelopMacosX8664 < Formula
+class SdlHerculesDevelop < Formula
   desc "SDL-Hercules-390 Develop Branch, under The Q Public License"
   homepage "https://github.com/wrljet/sdl-hercules-develop-homebrew"
   url "https://github.com/wrljet/sdl-hercules-binaries-macos/archive/refs/tags/v0.9.8.tar.gz"
