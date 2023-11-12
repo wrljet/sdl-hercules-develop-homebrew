@@ -302,33 +302,33 @@ verbose_msg # output a newline
 status_prompter "Step: Create new formula (with new tag $NEW_TAG):"
 
 # Update release tag in URL
-echo_and_run "cp sdl-hercules-develop-macos-x86-64.rb sdl-hercules-develop-macos-x86-64.rb.old"
+echo_and_run "cp sdl-hercules-develop.rb sdl-hercules-develop.rb.old"
 
-gsed -i -e "s/v0\.9\.[0-9]\+\.tar\.gz/$NEW_TAG.tar.gz/" sdl-hercules-develop-macos-x86-64.rb
+gsed -i -e "s/v0\.9\.[0-9]\+\.tar\.gz/$NEW_TAG.tar.gz/" sdl-hercules-develop.rb
 
 # Update formula (download release and get sha256)
 echo_and_run "rm /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/sdl-hercules-binaries-macos.rb"
 
-# echo_and_run "brew fetch --formula sdl-hercules-develop-macos-x86-64.rb --build-from-source"
-# echo_and_run "brew fetch --formula sdl-hercules-develop-macos-x86-64.rb --build-from-source 2>/dev/null | grep -e '^SHA256:\s\+' | awk '{print \$2}'"
+# echo_and_run "brew fetch --formula sdl-hercules-develop.rb --build-from-source"
+# echo_and_run "brew fetch --formula sdl-hercules-develop.rb --build-from-source 2>/dev/null | grep -e '^SHA256:\s\+' | awk '{print \$2}'"
 
-SHA256=$(brew fetch --formula sdl-hercules-develop-macos-x86-64.rb --build-from-source 2>/dev/null | grep -e '^SHA256:\s\+' | awk '{print $2}')
+SHA256=$(brew fetch --formula sdl-hercules-develop.rb --build-from-source 2>/dev/null | grep -e '^SHA256:\s\+' | awk '{print $2}')
 echo "new sha256: $SHA256"
 
 # Displays:
 # SHA256: a21951a4fafaac1808ca818a776ff07413bb4cee9d4f19ce4a05565746923346
 
 # Edit the sha256
-gsed -i -e "s/  sha256 \"[0-9a-f]\+\"/  sha256 \"$SHA256\"/" sdl-hercules-develop-macos-x86-64.rb
+gsed -i -e "s/  sha256 \"[0-9a-f]\+\"/  sha256 \"$SHA256\"/" sdl-hercules-develop.rb
 
-head sdl-hercules-develop-macos-x86-64.rb
+head sdl-hercules-develop.rb
 git status
 
 #------------------------------------------------------------------------------
 verbose_msg # output a newline
 status_prompter "Step: Commit new Homebrew formula to GitHub (with new tag $NEW_TAG):"
 
-echo_and_run "git add sdl-hercules-develop-macos-x86-64.rb"
+echo_and_run "git add sdl-hercules-develop.rb"
 echo_and_run "git commit -m \"Formula $NEW_TAG, SDL-Hercules-390 build $SDL_VERSION\""
 echo_and_run "git push"
 
@@ -346,7 +346,7 @@ if [ -z "$NEEDS_TAG" ]; then
     echo_and_run "git tag -a $NEW_TAG -m \"SDL-Hercules-390 build $SDL_VERSION\""
     echo_and_run "git push --tags"
     echo_and_run "gh release create $NEW_TAG --generate-notes --prerelease --title \"SDL-Hercules-390 build $SDL_VERSION\""
-    echo_and_run "gh release upload $NEW_TAG sdl-hercules-develop-macos-x86-64.rb"
+    echo_and_run "gh release upload $NEW_TAG sdl-hercules-develop.rb"
 
 #    git fetch --all --tags --prune --prune-tags --quiet
 else
@@ -357,17 +357,16 @@ fi
 #
 # Test install / remove
 #
-# brew install sdl-hercules-develop-macos-x86-64.rb
+# brew install sdl-hercules-develop.rb
 # which hercules
 # hercules --version
 # brew remove sdl-hercules-develop
 # which hercules
-#
+
 # rm /Users/bill/Library/Caches/Homebrew/downloads/9503f4604d3cf6ae7b3711056827504e8627088bae49bb4125cf7bfc4247e6d9--sdl-hercules-binaries-macos-0.9.6.tar.gz
 
-rm /Users/bill/Library/Caches/Homebrew/downloads/*sdl-hercules*
+rm -f /Users/bill/Library/Caches/Homebrew/downloads/*sdl-hercules*
 
-#
 #
 # end
 
