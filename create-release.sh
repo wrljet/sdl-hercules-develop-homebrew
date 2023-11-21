@@ -3,7 +3,7 @@
 # create-release.sh
 # Part of https://github.com/wrljet/sdl-hercules-develop-homebrew
 # Author:  Bill Lewis  bill@wrljet.com
-# Updated: 11 NOV 2023
+# Updated: 20 NOV 2023
 
 # To install Homebrew
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -32,7 +32,7 @@ else
 fi
 
 # Stop on error
-# set -e
+set -e
 
 # Instructions on updating Bash on macOS Mojave 10.14
 # https://itnext.io/upgrading-bash-on-macos-7138bd1066ba
@@ -81,6 +81,36 @@ if [ "$EUID" -eq 0 ]; then
     exit 1
 fi
 
+#-----------------------------------------------------------------------------
+#
+# Check for GitHub cli 'gh'
+#
+    which -s gh
+    if [[ $? != 0 ]] ; then
+        echo "    GitHub cli 'gh' is not installed"
+        exit 1
+    fi
+
+#-----------------------------------------------------------------------------
+
+# Normally, if sudo requires a password, it will read it from the user's terminal.
+# If the -A (askpass) option is specified, a (possibly graphical) helper program
+# is executed to read the user's password and output the password to the standard
+# output.  If the SUDO_ASKPASS environment variable is set, it specifies the path
+# to the helper program.  Otherwise, if sudo.conf(5) contains a line specifying
+# the askpass program, that value will be used.  For example:
+# 
+#   # Path to askpass helper program
+#   Path askpass /usr/X11R6/bin/ssh-askpass
+
+# If no askpass program is available, sudo will exit with an error.
+
+SCRIPT_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")
+SCRIPT_DIR="$(dirname $SCRIPT_PATH)"
+echo "SCRIPT_DIR= $SCRIPT_DIR"
+export SUDO_ASKPASS="$SCRIPT_DIR/askpass.sh"
+echo $SUDO_ASKPASS
+
 #------------------------------------------------------------------------------
 # Are we running from the correct directory?
 cpwd=`pwd`
@@ -99,8 +129,8 @@ echo "This script will rebuild Hercules and create a new Homebrew formula"
 verbose_msg # output a newline
 status_prompter "Step: Remove anything existing installed by Homebrew:"
 
-echo_and_run "brew uninstall sdl-hercules-develop"
-echo_and_run "brew untap wrljet/sdl-hercules-develop"
+echo_and_run "brew uninstall sdl-hercules-develop || true"
+echo_and_run "brew untap wrljet/sdl-hercules-develop || true"
 
 echo_and_run "brew update"
 
@@ -108,33 +138,37 @@ echo_and_run "brew update"
 # pkgutil --pkg-info=com.apple.pkg.CLTools_Executables
 
 #------------------------------------------------------------------------------
+#
 # Build latest SDL-Hercules-390
-
+#
 verbose_msg # output a newline
 verbose_msg "Step: Building SDL-Hercules-390:"
 
 echo "Currently \"installed\" Hercules: `which hercules`"
 
-mkdir -p build
-pushd build
+echo_and_run "mkdir -p work"
+echo_and_run "pushd work >/dev/null"
 
   if confirm "Do you want to rebuild Hercules? [y/N]" ; then
     echo "OK"
-    ~/hercules-helper/hercules-buildall.sh -v -p --beeps --homebrew --no-bashrc --config=../build-for-homebrew.conf 
+    MACOSX_DEPLOYMENT_TARGET=11.6 ~/hercules-helper/hercules-buildall.sh -v --homebrew --no-bashrc --askpass --config=../build-for-homebrew.conf 
   else
     :
   fi
 
 # Figure out the Hercules version string
-  pushd hyperion
+  echo_and_run "pushd hyperion >/dev/null"
     SDL_VERSION=$(./_dynamic_version)
-  popd
-popd
+  echo_and_run "popd >/dev/null"
+  echo "pwd: $(pwd)"
+echo_and_run "popd >/dev/null"
+echo "pwd: $(pwd)"
 
 #------------------------------------------------------------------------------
+#
 # Build artifacts are now in /usr/local{bin,lib,share}
 # Copy them to ~/sdl-hercules-binaries-macos
-
+#
 verbose_msg # output a newline
 status_prompter "Step: Copy build artifacts to local sdl-hercules-binaries-macos repo:"
 
@@ -219,12 +253,21 @@ cp /usr/local/share/man/man1/vmfplc2.1   ~/sdl-hercules-binaries-macos/share/man
 cp /usr/local/share/man/man4/cckd.4      ~/sdl-hercules-binaries-macos/share/man/man4
 
 #------------------------------------------------------------------------------
+#
 # Find current/newest tag in the binaries repo
-
+#
 verbose_msg # output a newline
 status_prompter "Step: Find current/newest tag already in the binaries repo:"
 
-pushd ~/sdl-hercules-binaries-macos
+echo_and_run "pushd ~/sdl-hercules-binaries-macos >/dev/null"
+
+    cat <<FOE >"VERSION"
+#
+# This file was created by $0, on $(date)
+#
+# This is version SDL-Hercules-390 build $SDL_VERSION"
+#
+FOE
 
   git config user.email "bill@wrljet.com"
   git config user.name "Bill Lewis"
@@ -239,8 +282,9 @@ pushd ~/sdl-hercules-binaries-macos
 # Ensure main is up-to-date
 ##git pull origin main --quiet
 
-# Get highest tag number
-VERSION=`git describe --abbrev=0 --tags`
+# Get highest current tag number
+VERSION=$(git describe --abbrev=0 --tags)
+echo "gti describe --abbrev=0 --tags:=$VERSION"
 
 # Replace . with space so can split into an array
 VERSION_BITS=(${VERSION//./ })
@@ -249,11 +293,11 @@ VERSION_BITS=(${VERSION//./ })
 VNUM1=${VERSION_BITS[0]}
 VNUM2=${VERSION_BITS[1]}
 VNUM3=${VERSION_BITS[2]}
-VNUM1=`echo $VNUM1 | sed 's/v//'`
+VNUM1=$(echo $VNUM1 | sed 's/v//')
 
 # Check for #major or #minor in commit message and increment the relevant version number
-MAJOR=`git log --format=%B ${VERSION}..HEAD --oneline | grep '#major'`
-MINOR=`git log --format=%B ${VERSION}..HEAD --oneline | grep '#minor'`
+MAJOR=$(git log --format=%B ${VERSION}..HEAD --oneline | grep '#major' || true)
+MINOR=$(git log --format=%B ${VERSION}..HEAD --oneline | grep '#minor' || true)
 
 if [ "$MAJOR" ]; then
     echo "Update major version"
@@ -272,15 +316,64 @@ fi
 # Create new tag
 NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 
+# We want to keep the two most recent release
+# So figure out the tags for two older than that
+
+DEL_TAG1="v$VNUM1.$VNUM2.$((VNUM3-3))"
+DEL_TAG2="v$VNUM1.$VNUM2.$((VNUM3-4))"
+DEL_TAG3="v$VNUM1.$VNUM2.$((VNUM3-5))"
+
+
+    declare -a releases_to_remove=( \
+        "v$VNUM1.$VNUM2.$((VNUM3-3))"  \
+        "v$VNUM1.$VNUM2.$((VNUM3-4))"  \
+        "v$VNUM1.$VNUM2.$((VNUM3-5))"
+    )
+
+    echo "We want to remove older releases:"
+    for release_tag in "${releases_to_remove[@]}"; do
+        echo "  $release_tag"
+    done
+
+    for release_tag in "${releases_to_remove[@]}"; do
+        echo "gh release view $release_tag"
+        RC=$(gh release view $release_tag 2>&1 || true)
+        if [[ $RC == "release not found" ]] ; then
+            echo "    No such release: $release_tag"
+        else
+            echo "    Release: $release_tag will be removed"
+
+            gh release delete $release_tag --cleanup-tag --yes
+echo "gh release return code: $?"
+        fi
+    done
+
 #------------------------------------------------------------------------------
+#
+# Update $VERSION to $NEW_TAG and create GitHub release
+#
 verbose_msg # output a newline
 status_prompter "Step: Updating $VERSION to $NEW_TAG and create GitHub release:"
+
+# Trimming older releases...
+#
+# Show a list of all releases:
+#  gh release list
+#
+# List info about a release:
+#  gh release view v0.9.1
+# Set return code 0 if the release exists, or 1 if not found
+#
+# Delete an existing release:
+#  gh release delete v0.9.1 --cleanup-tag --yes
 
 echo "Updating $VERSION to $NEW_TAG"
 
 # Get current hash and see if it already has a tag
-GIT_COMMIT=`git rev-parse HEAD`
-NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
+GIT_COMMIT=$(git rev-parse HEAD || true)
+echo "GIT_COMMIT=$GIT_COMMIT"
+NEEDS_TAG=$(git describe --contains $GIT_COMMIT 2>/dev/null || true)
+echo "NEEDS_TAG=$NEEDS_TAG"
 
 # Only tag if no tag already (would be better if the git describe command above could have a silent option)
 if [ -z "$NEEDS_TAG" ]; then
@@ -293,11 +386,25 @@ else
     echo "Already a tag ($VERSION) on this commit.  Nothing to do."
 fi
 
-echo_and_run "popd"
+echo_and_run "popd >/dev/null"
+echo "pwd: $(pwd)"
+
+# Make up the binaries tarball
+PWD=$(pwd)
+pushd ~
+# Dir name inside binaries tarball
+# sdl-hercules-binaries-macos-0.9.26/
+rm -rf ~/sdl-hercules-binaries-macos-$NEW_TAG/
+cp -R ~/sdl-hercules-binaries-macos/ sdl-hercules-binaries-macos-$NEW_TAG/
+
+echo_and_run "rm -rf sdl-hercules-binaries-macos-$NEW_TAG/.git"
+echo_and_run "tar cfz $PWD/sdl-hercules-binaries-macos-$NEW_TAG.tar.gz sdl-hercules-binaries-macos-$NEW_TAG/"
+popd
 
 #------------------------------------------------------------------------------
+#
 # Create new formula (with new tag)
-
+#
 verbose_msg # output a newline
 status_prompter "Step: Create new formula (with new tag $NEW_TAG):"
 
@@ -307,7 +414,7 @@ echo_and_run "cp sdl-hercules-develop.rb sdl-hercules-develop.rb.old"
 gsed -i -e "s/v0\.9\.[0-9]\+\.tar\.gz/$NEW_TAG.tar.gz/" sdl-hercules-develop.rb
 
 # Update formula (download release and get sha256)
-echo_and_run "rm /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/sdl-hercules-binaries-macos.rb"
+echo_and_run "rm -f /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/sdl-hercules-binaries-macos.rb"
 
 # echo_and_run "brew fetch --formula sdl-hercules-develop.rb --build-from-source"
 # echo_and_run "brew fetch --formula sdl-hercules-develop.rb --build-from-source 2>/dev/null | grep -e '^SHA256:\s\+' | awk '{print \$2}'"
@@ -325,20 +432,36 @@ head sdl-hercules-develop.rb
 git status
 
 #------------------------------------------------------------------------------
+#
+# Commit new Homebrew formula to GitHub
+#
 verbose_msg # output a newline
 status_prompter "Step: Commit new Homebrew formula to GitHub (with new tag $NEW_TAG):"
 
-echo_and_run "git add sdl-hercules-develop.rb"
+ARTIFACT="sdl-hercules-$SDL_VERSION-macOS.rb"
+
+echo_and_run "cp sdl-hercules-develop.rb $ARTIFACT"
+echo_and_run "git add $ARTIFACT"
+
+echo "git add sdl-hercules-binaries-macos-$NEW_TAG.tar.gz"
+cp ~/sdl-hercules-binaries-macos-$NEW_TAG.tar.gz .
+git add sdl-hercules-binaries-macos-$NEW_TAG.tar.gz
+
 echo_and_run "git commit -m \"Formula $NEW_TAG, SDL-Hercules-390 build $SDL_VERSION\""
 echo_and_run "git push"
 
 #------------------------------------------------------------------------------
+#
+# Create new .rb release
+#
 verbose_msg # output a newline
 status_prompter "Step: Create new .rb release:"
 
 # Get current hash and see if it already has a tag
-GIT_COMMIT=`git rev-parse HEAD`
-NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
+GIT_COMMIT=$(git rev-parse HEAD || true)
+echo "GIT_COMMIT=$GIT_COMMIT"
+NEEDS_TAG=$(git describe --contains $GIT_COMMIT 2>/dev/null || true)
+echo "NEEDS_TAG=$NEEDS_TAG"
 
 # Only tag if no tag already (would be better if the git describe command above could have a silent option)
 if [ -z "$NEEDS_TAG" ]; then
@@ -346,7 +469,7 @@ if [ -z "$NEEDS_TAG" ]; then
     echo_and_run "git tag -a $NEW_TAG -m \"SDL-Hercules-390 build $SDL_VERSION\""
     echo_and_run "git push --tags"
     echo_and_run "gh release create $NEW_TAG --generate-notes --prerelease --title \"SDL-Hercules-390 build $SDL_VERSION\""
-    echo_and_run "gh release upload $NEW_TAG sdl-hercules-develop.rb"
+    echo_and_run "gh release upload $NEW_TAG $ARTIFACT"
 
 #    git fetch --all --tags --prune --prune-tags --quiet
 else
@@ -357,6 +480,14 @@ fi
 #
 # Test install / remove
 #
+verbose_msg # output a newline
+status_prompter "Step: Remove Hercules installed by the build process:"
+
+echo_and_run "pushd work/hyperion/build >/dev/null"
+echo_and_run "sudo -A make uninstall"
+echo_and_run "popd >/dev/null"
+echo "pwd: $(pwd)"
+
 # brew install sdl-hercules-develop.rb
 # which hercules
 # hercules --version
