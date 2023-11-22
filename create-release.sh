@@ -117,8 +117,8 @@ cpwd=`pwd`
 curdir=`basename "$cpwd"`
 
 #if [[ "$curdir"  != "zlinux" ]]; then
-#	echo "This script needs to be executed from inside the homebrew-sdl-hercules-develop directory. Please retry."
-#	exit 1
+#       echo "This script needs to be executed from inside the homebrew-sdl-hercules-develop directory. Please retry."
+#       exit 1
 #fi
 
 #------------------------------------------------------------------------------
@@ -158,7 +158,15 @@ echo_and_run "pushd work >/dev/null"
 
 # Figure out the Hercules version string
   echo_and_run "pushd hyperion >/dev/null"
+
     SDL_VERSION=$(./_dynamic_version)
+    #
+    # Remove double quotes and spaces from Fish's version string
+    SDL_VERSION="${SDL_VERSION%\"}"
+    SDL_VERSION="${SDL_VERSION#\"}"
+    SDL_VERSION="${SDL_VERSION//[[:space:]]/}"
+    echo "SDL_VERSION: $SDL_VERSION"
+
   echo_and_run "popd >/dev/null"
   echo "pwd: $(pwd)"
 echo_and_run "popd >/dev/null"
@@ -272,16 +280,127 @@ FOE
   git config user.email "bill@wrljet.com"
   git config user.name "Bill Lewis"
 
-  git status
-  git commit -a -m "SDL-Hercules-390 build $SDL_VERSION"
-  git push
+##   # git status
+##   # git commit -a -m "SDL-Hercules-390 build $SDL_VERSION"
+##   # git push
+## 
+## # Ideas in this section taken from https://gist.github.com/chadwagoner-sf/5a344f7e5601646721b5ff232f056113
+## # Forked from GitHub CSTDev/auto-increment-version.sh
+## 
+## # Ensure main is up-to-date
+## ##git pull origin main --quiet
+## 
+## # Get highest current tag number
+## VERSION=$(git describe --abbrev=0 --tags)
+## echo "gti describe --abbrev=0 --tags:=$VERSION"
+## 
+## echo "Old Version: $VERSION"
+## 
+## # Replace . with space so can split into an array
+## VERSION_BITS=(${VERSION//./ })
+## 
+## #get number parts and increase last one by 1
+## VNUM1=${VERSION_BITS[0]}
+## VNUM2=${VERSION_BITS[1]}
+## VNUM3=${VERSION_BITS[2]}
+## VNUM1=$(echo $VNUM1 | sed 's/v//')
+## 
+## # Check for #major or #minor in commit message and increment the relevant version number
+## MAJOR=$(git log --format=%B ${VERSION}..HEAD --oneline | grep '#major' || true)
+## MINOR=$(git log --format=%B ${VERSION}..HEAD --oneline | grep '#minor' || true)
+## 
+## if [ "$MAJOR" ]; then
+##     echo "Update major version"
+##     VNUM1=$((VNUM1+1))
+##     VNUM2=0
+##     VNUM3=0
+## elif [ "$MINOR" ]; then
+##     echo "Update minor version"
+##     VNUM2=$((VNUM2+1))
+##     VNUM3=0
+## else
+##     echo "Update patch version"
+##     VNUM3=$((VNUM3+1))
+## fi
+## 
+## # Create new tag
+## NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
+## 
+## # We want to keep the two most recent release
+## # So figure out the tags for two older than that
+## 
+## DEL_TAG1="v$VNUM1.$VNUM2.$((VNUM3-3))"
+## DEL_TAG2="v$VNUM1.$VNUM2.$((VNUM3-4))"
+## DEL_TAG3="v$VNUM1.$VNUM2.$((VNUM3-5))"
+## 
+## 
+##     declare -a releases_to_remove=( \
+##         "v$VNUM1.$VNUM2.$((VNUM3-3))"  \
+##         "v$VNUM1.$VNUM2.$((VNUM3-4))"  \
+##         "v$VNUM1.$VNUM2.$((VNUM3-5))"
+##     )
+## 
+##     echo "We want to remove older releases:"
+##     for release_tag in "${releases_to_remove[@]}"; do
+##         echo "  $release_tag"
+##     done
+## 
+##     for release_tag in "${releases_to_remove[@]}"; do
+##         echo "gh release view $release_tag"
+##         RC=$(gh release view $release_tag 2>&1 || true)
+##         if [[ $RC == "release not found" ]] ; then
+##             echo "    No such release: $release_tag"
+##         else
+##             echo "    Release: $release_tag will be removed"
+## 
+##             gh release delete $release_tag --cleanup-tag --yes
+## echo "gh release return code: $?"
+##         fi
+##     done
 
-# Ideas in this section taken from https://gist.github.com/chadwagoner-sf/5a344f7e5601646721b5ff232f056113
-# Forked from GitHub CSTDev/auto-increment-version.sh
+#------------------------------------------------------------------------------
+#
+# Update $VERSION to $NEW_TAG and create GitHub release
+#
+verbose_msg # output a newline
+## status_prompter "Step: Updating $VERSION to $NEW_TAG and create GitHub release:"
 
-# Ensure main is up-to-date
-##git pull origin main --quiet
+# Trimming older releases...
+#
+# Show a list of all releases:
+#  gh release list
+#
+# List info about a release:
+#  gh release view v0.9.1
+# Set return code 0 if the release exists, or 1 if not found
+#
+# Delete an existing release:
+#  gh release delete v0.9.1 --cleanup-tag --yes
 
+## echo "Updating $VERSION to $NEW_TAG"
+## 
+## # Get current hash and see if it already has a tag
+## GIT_COMMIT=$(git rev-parse HEAD || true)
+## echo "GIT_COMMIT=$GIT_COMMIT"
+## NEEDS_TAG=$(git describe --contains $GIT_COMMIT 2>/dev/null || true)
+## echo "NEEDS_TAG=$NEEDS_TAG"
+## 
+## # Only tag if no tag already (would be better if the git describe command above could have a silent option)
+## if [ -z "$NEEDS_TAG" ]; then
+##     echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
+##     echo_and_run "git tag -a $NEW_TAG -m \"SDL-Hercules-390 build $SDL_VERSION\""
+##     echo_and_run "git push --tags"
+##     echo_and_run "gh release create $NEW_TAG --generate-notes --prerelease --title \"SDL-Hercules-390 build $SDL_VERSION\""
+## #    git fetch --all --tags --prune --prune-tags --quiet
+## else
+##     echo "Already a tag ($VERSION) on this commit.  Nothing to do."
+## fi
+
+echo_and_run "popd >/dev/null"
+echo "pwd: $(pwd)"
+
+#------------------------------------------------------------------------------
+#
 # Get highest current tag number
 VERSION=$(git describe --abbrev=0 --tags)
 echo "gti describe --abbrev=0 --tags:=$VERSION"
@@ -318,89 +437,16 @@ fi
 # Create new tag
 NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
 
-# We want to keep the two most recent release
-# So figure out the tags for two older than that
-
-DEL_TAG1="v$VNUM1.$VNUM2.$((VNUM3-3))"
-DEL_TAG2="v$VNUM1.$VNUM2.$((VNUM3-4))"
-DEL_TAG3="v$VNUM1.$VNUM2.$((VNUM3-5))"
-
-
-    declare -a releases_to_remove=( \
-        "v$VNUM1.$VNUM2.$((VNUM3-3))"  \
-        "v$VNUM1.$VNUM2.$((VNUM3-4))"  \
-        "v$VNUM1.$VNUM2.$((VNUM3-5))"
-    )
-
-    echo "We want to remove older releases:"
-    for release_tag in "${releases_to_remove[@]}"; do
-        echo "  $release_tag"
-    done
-
-    for release_tag in "${releases_to_remove[@]}"; do
-        echo "gh release view $release_tag"
-        RC=$(gh release view $release_tag 2>&1 || true)
-        if [[ $RC == "release not found" ]] ; then
-            echo "    No such release: $release_tag"
-        else
-            echo "    Release: $release_tag will be removed"
-
-            gh release delete $release_tag --cleanup-tag --yes
-echo "gh release return code: $?"
-        fi
-    done
-
-#------------------------------------------------------------------------------
-#
-# Update $VERSION to $NEW_TAG and create GitHub release
-#
-verbose_msg # output a newline
-status_prompter "Step: Updating $VERSION to $NEW_TAG and create GitHub release:"
-
-# Trimming older releases...
-#
-# Show a list of all releases:
-#  gh release list
-#
-# List info about a release:
-#  gh release view v0.9.1
-# Set return code 0 if the release exists, or 1 if not found
-#
-# Delete an existing release:
-#  gh release delete v0.9.1 --cleanup-tag --yes
-
-echo "Updating $VERSION to $NEW_TAG"
-
-# Get current hash and see if it already has a tag
-GIT_COMMIT=$(git rev-parse HEAD || true)
-echo "GIT_COMMIT=$GIT_COMMIT"
-NEEDS_TAG=$(git describe --contains $GIT_COMMIT 2>/dev/null || true)
-echo "NEEDS_TAG=$NEEDS_TAG"
-
-# Only tag if no tag already (would be better if the git describe command above could have a silent option)
-if [ -z "$NEEDS_TAG" ]; then
-    echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
-    echo_and_run "git tag -a $NEW_TAG -m \"SDL-Hercules-390 build $SDL_VERSION\""
-    echo_and_run "git push --tags"
-    echo_and_run "gh release create $NEW_TAG --generate-notes --prerelease --title \"SDL-Hercules-390 build $SDL_VERSION\""
-#    git fetch --all --tags --prune --prune-tags --quiet
-else
-    echo "Already a tag ($VERSION) on this commit.  Nothing to do."
-fi
-
-echo_and_run "popd >/dev/null"
-echo "pwd: $(pwd)"
-
 # Make up the binaries tarball
 PWD=$(pwd)
 pushd ~
 # Dir name inside binaries tarball
-# sdl-hercules-binaries-macos-0.9.26/
-rm -rf ~/sdl-hercules-binaries-macos-$NEW_TAG/
-cp -R ~/sdl-hercules-binaries-macos/ sdl-hercules-binaries-macos-$NEW_TAG/
+# e.g. sdl-hercules-binaries-macOS-0.9.26/
+rm -rf ~/sdl-hercules-binaries-macOS-$NEW_TAG/
+cp -R ~/sdl-hercules-binaries-macOS/ sdl-hercules-binaries-macOS-$NEW_TAG/
 
-echo_and_run "rm -rf sdl-hercules-binaries-macos-$NEW_TAG/.git"
-echo_and_run "tar cfz $PWD/sdl-hercules-binaries-macos-$NEW_TAG.tar.gz sdl-hercules-binaries-macos-$NEW_TAG/"
+echo_and_run "rm -rf sdl-hercules-binaries-macOS-$NEW_TAG/.git"
+echo_and_run "tar cfz $PWD/sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz sdl-hercules-binaries-macOS-$NEW_TAG/"
 
 echo "FIXME FIXME"
 echo_and_run "ls -lh $PWD"
@@ -418,25 +464,17 @@ status_prompter "Step: Create new formula (with new tag $NEW_TAG):"
 # Update release tag in URL
 echo_and_run "cp sdl-hercules-develop.rb sdl-hercules-develop.rb.old"
 
-gsed -i -e "s/v0\.9\.[0-9]\+\.tar\.gz/$NEW_TAG.tar.gz/" sdl-hercules-develop.rb
+# URL to binaries tarball is of this form:
+# https://github.com/wrljet/sdl-hercules-develop-homebrew/releases/download/v0.9.43/sdl-hercules-binaries-macos-4.6.0.10941-SDL-g65c97fd6-v0.9.43.tar.gz
+
+gsed -i -e "s/v0\.9\.[0-9]\+/$NEW_TAG/g" sdl-hercules-develop.rb
+#gsed -i -e "s/v0\.9\.[0-9]\+\.tar\.gz/$NEW_TAG.tar.gz/" sdl-hercules-develop.rb
 
 # Update formula (download release and get sha256)
-echo_and_run "rm -f /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/sdl-hercules-binaries-macos.rb"
+echo_and_run "rm -f /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/sdl-hercules-binaries-macOS.rb"
 
 # echo_and_run "brew fetch --formula sdl-hercules-develop.rb --build-from-source"
 # echo_and_run "brew fetch --formula sdl-hercules-develop.rb --build-from-source 2>/dev/null | grep -e '^SHA256:\s\+' | awk '{print \$2}'"
-
-SHA256=$(brew fetch --formula sdl-hercules-develop.rb --build-from-source 2>/dev/null | grep -e '^SHA256:\s\+' | awk '{print $2}')
-echo "new sha256: $SHA256"
-
-# Displays:
-# SHA256: a21951a4fafaac1808ca818a776ff07413bb4cee9d4f19ce4a05565746923346
-
-# Edit the sha256
-gsed -i -e "s/  sha256 \"[0-9a-f]\+\"/  sha256 \"$SHA256\"/" sdl-hercules-develop.rb
-
-head sdl-hercules-develop.rb
-git status
 
 #------------------------------------------------------------------------------
 #
@@ -447,10 +485,7 @@ status_prompter "Step: Commit new Homebrew formula to GitHub (with new tag $NEW_
 
 ARTIFACT="sdl-hercules-$SDL_VERSION-macOS.rb"
 
-echo_and_run "cp sdl-hercules-develop.rb $ARTIFACT"
 echo_and_run "git add sdl-hercules-develop.rb"
-
-echo_and_run "git rm sdl-hercules-binaries-macos-$VERSION.tar.gz"
 
 echo_and_run "git commit -m \"Formula $NEW_TAG, SDL-Hercules-390 build $SDL_VERSION\""
 echo_and_run "git push"
@@ -475,15 +510,87 @@ if [ -z "$NEEDS_TAG" ]; then
     echo_and_run "git push --tags"
 
     echo_and_run "gh release create $NEW_TAG --generate-notes --prerelease --title \"SDL-Hercules-390 build $SDL_VERSION\""
-    echo_and_run "gh release upload $NEW_TAG $ARTIFACT"
 
-echo_and_run "cp ~/sdl-hercules-binaries-macos-$NEW_TAG.tar.gz ."
-    echo_and_run "gh release upload $NEW_TAG sdl-hercules-binaries-macos-$NEW_TAG.tar.gz"
-
-#    git fetch --all --tags --prune --prune-tags --quiet
+echo_and_run "cp ~/sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz ."
+    echo_and_run "gh release upload $NEW_TAG sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz"
 else
     echo "Already a tag ($VERSION) on this commit.  Nothing to do."
+    echo "FIXME FIXME FIXME"
 fi
+
+#------------------------------------------------------------------------------
+#
+
+# Displays:
+# SHA256: a21951a4fafaac1808ca818a776ff07413bb4cee9d4f19ce4a05565746923346
+# SHA256=$(brew fetch --formula sdl-hercules-develop.rb --build-from-source 2>/dev/null | grep -e '^SHA256:\s\+' | awk '{print $2}')
+
+SHA256=$(sha256sum sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz)
+echo "New sha256: $SHA256"
+
+# Edit the sha256
+gsed -i -e "s/  sha256 \"[0-9a-f]\+\"/  sha256 \"$SHA256\"/" sdl-hercules-develop.rb
+
+head sdl-hercules-develop.rb
+git status
+
+#------------------------------------------------------------------------------
+#
+# Update new .rb release
+#
+verbose_msg # output a newline
+status_prompter "Step: Update new .rb release:"
+
+echo_and_run "cp sdl-hercules-develop.rb $ARTIFACT"
+echo_and_run "gh release upload $NEW_TAG $ARTIFACT"
+
+#------------------------------------------------------------------------------
+#
+# Remove build artifacts
+#
+echo "Remove build artifacts"
+echo_and_run "rm ~/sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz"
+echo_and_run "rm sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz"
+echo_and_run "rm -r ~/sdl-hercules-binaries-macOS-$NEW_TAG/"
+
+#------------------------------------------------------------------------------
+#
+# Remove old releases
+#
+verbose_msg # output a newline
+status_prompter "Step: Remove older releases:"
+
+# We want to keep the four most recent release
+# So figure out the tags for four older than that
+
+DEL_TAG1="v$VNUM1.$VNUM2.$((VNUM3-5))"
+DEL_TAG2="v$VNUM1.$VNUM2.$((VNUM3-6))"
+DEL_TAG3="v$VNUM1.$VNUM2.$((VNUM3-7))"
+DEL_TAG4="v$VNUM1.$VNUM2.$((VNUM3-8))"
+
+    declare -a releases_to_remove=( \
+        $DEL_TAG1 \
+        $DEL_TAG2 \
+        $DEL_TAG3 \
+        $DEL_TAG4
+    )
+
+    echo "Remove older releases:"
+    for release_tag in "${releases_to_remove[@]}"; do
+        echo "  $release_tag"
+    done
+
+    for release_tag in "${releases_to_remove[@]}"; do
+        echo "gh release view $release_tag"
+        RC=$(gh release view $release_tag 2>&1 || true)
+        if [[ $RC == "release not found" ]] ; then
+            echo "    No such release: $release_tag"
+        else
+            echo "    Release: $release_tag will be removed"
+
+            gh release delete $release_tag --cleanup-tag --yes
+        fi
+    done
 
 #------------------------------------------------------------------------------
 #
@@ -503,7 +610,7 @@ echo "pwd: $(pwd)"
 # brew remove sdl-hercules-develop
 # which hercules
 
-# rm /Users/bill/Library/Caches/Homebrew/downloads/9503f4604d3cf6ae7b3711056827504e8627088bae49bb4125cf7bfc4247e6d9--sdl-hercules-binaries-macos-0.9.6.tar.gz
+# rm /Users/bill/Library/Caches/Homebrew/downloads/9503f4604d3cf6ae7b3711056827504e8627088bae49bb4125cf7bfc4247e6d9--sdl-hercules-binaries-macOS-0.9.6.tar.gz
 
 rm -f /Users/bill/Library/Caches/Homebrew/downloads/*sdl-hercules*
 
