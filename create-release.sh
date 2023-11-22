@@ -3,7 +3,7 @@
 # create-release.sh
 # Part of https://github.com/wrljet/sdl-hercules-develop-homebrew
 # Author:  Bill Lewis  bill@wrljet.com
-# Updated: 20 NOV 2023
+# Updated: 22 NOV 2023
 
 # To install Homebrew
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -286,6 +286,8 @@ FOE
 VERSION=$(git describe --abbrev=0 --tags)
 echo "gti describe --abbrev=0 --tags:=$VERSION"
 
+echo "Old Version: $VERSION"
+
 # Replace . with space so can split into an array
 VERSION_BITS=(${VERSION//./ })
 
@@ -399,6 +401,11 @@ cp -R ~/sdl-hercules-binaries-macos/ sdl-hercules-binaries-macos-$NEW_TAG/
 
 echo_and_run "rm -rf sdl-hercules-binaries-macos-$NEW_TAG/.git"
 echo_and_run "tar cfz $PWD/sdl-hercules-binaries-macos-$NEW_TAG.tar.gz sdl-hercules-binaries-macos-$NEW_TAG/"
+
+echo "FIXME FIXME"
+echo_and_run "ls -lh $PWD"
+echo "FIXME FIXME"
+
 popd
 
 #------------------------------------------------------------------------------
@@ -441,11 +448,9 @@ status_prompter "Step: Commit new Homebrew formula to GitHub (with new tag $NEW_
 ARTIFACT="sdl-hercules-$SDL_VERSION-macOS.rb"
 
 echo_and_run "cp sdl-hercules-develop.rb $ARTIFACT"
-echo_and_run "git add $ARTIFACT"
+echo_and_run "git add sdl-hercules-develop.rb"
 
-echo "git add sdl-hercules-binaries-macos-$NEW_TAG.tar.gz"
-cp ~/sdl-hercules-binaries-macos-$NEW_TAG.tar.gz .
-git add sdl-hercules-binaries-macos-$NEW_TAG.tar.gz
+echo_and_run "git rm sdl-hercules-binaries-macos-$VERSION.tar.gz"
 
 echo_and_run "git commit -m \"Formula $NEW_TAG, SDL-Hercules-390 build $SDL_VERSION\""
 echo_and_run "git push"
@@ -468,8 +473,12 @@ if [ -z "$NEEDS_TAG" ]; then
     echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
     echo_and_run "git tag -a $NEW_TAG -m \"SDL-Hercules-390 build $SDL_VERSION\""
     echo_and_run "git push --tags"
+
     echo_and_run "gh release create $NEW_TAG --generate-notes --prerelease --title \"SDL-Hercules-390 build $SDL_VERSION\""
     echo_and_run "gh release upload $NEW_TAG $ARTIFACT"
+
+echo_and_run "cp ~/sdl-hercules-binaries-macos-$NEW_TAG.tar.gz ."
+    echo_and_run "gh release upload $NEW_TAG sdl-hercules-binaries-macos-$NEW_TAG.tar.gz"
 
 #    git fetch --all --tags --prune --prune-tags --quiet
 else
