@@ -267,15 +267,15 @@ cp /usr/local/share/man/man4/cckd.4      ~/sdl-hercules-binaries-macos/share/man
 verbose_msg # output a newline
 status_prompter "Step: Find current/newest tag already in the binaries repo:"
 
-echo_and_run "pushd ~/sdl-hercules-binaries-macos >/dev/null"
-
-    cat <<FOE >"VERSION"
-#
-# This file was created by $0, on $(date)
-#
-# This is version SDL-Hercules-390 build $SDL_VERSION"
-#
-FOE
+## echo_and_run "pushd ~/sdl-hercules-binaries-macos >/dev/null"
+## 
+##     cat <<FOE >"VERSION"
+## #
+## # This file was created by $0, on $(date)
+## #
+## # This is version SDL-Hercules-390 build $SDL_VERSION"
+## #
+## FOE
 
   git config user.email "bill@wrljet.com"
   git config user.name "Bill Lewis"
@@ -362,7 +362,7 @@ FOE
 #
 # Update $VERSION to $NEW_TAG and create GitHub release
 #
-verbose_msg # output a newline
+## verbose_msg # output a newline
 ## status_prompter "Step: Updating $VERSION to $NEW_TAG and create GitHub release:"
 
 # Trimming older releases...
@@ -395,9 +395,9 @@ verbose_msg # output a newline
 ## else
 ##     echo "Already a tag ($VERSION) on this commit.  Nothing to do."
 ## fi
-
-echo_and_run "popd >/dev/null"
-echo "pwd: $(pwd)"
+## 
+## echo_and_run "popd >/dev/null"
+## echo "pwd: $(pwd)"
 
 #------------------------------------------------------------------------------
 #
@@ -527,6 +527,8 @@ fi
 
 SHA256=$(sha256sum sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz)
 echo "New sha256: $SHA256"
+echo "First word of sha256sum: ${SHA256%% *}"
+SHA256=${SHA256%% *}
 
 # Edit the sha256
 gsed -i -e "s/  sha256 \"[0-9a-f]\+\"/  sha256 \"$SHA256\"/" sdl-hercules-develop.rb
@@ -542,7 +544,7 @@ verbose_msg # output a newline
 status_prompter "Step: Update new .rb release:"
 
 echo_and_run "cp sdl-hercules-develop.rb $ARTIFACT"
-echo_and_run "gh release upload $NEW_TAG $ARTIFACT"
+echo_and_run "gh release upload $NEW_TAG sdl-hercules-develop.rb"
 
 #------------------------------------------------------------------------------
 #
@@ -551,7 +553,7 @@ echo_and_run "gh release upload $NEW_TAG $ARTIFACT"
 echo "Remove build artifacts"
 echo_and_run "rm ~/sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz"
 echo_and_run "rm sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz"
-echo_and_run "rm -r ~/sdl-hercules-binaries-macOS-$NEW_TAG/"
+# FIXME echo_and_run "rm -r ~/sdl-hercules-binaries-macOS-$NEW_TAG/"
 
 #------------------------------------------------------------------------------
 #
@@ -601,10 +603,12 @@ status_prompter "Step: Remove Hercules installed by the build process:"
 
 echo_and_run "pushd work/hyperion/build >/dev/null"
 echo_and_run "sudo -A make uninstall"
+echo_and_run "sudo rm -rf /usr/local/share/hercules"
+echo_and_run "sudo rm -rf /usr/local/share/man/man4"
 echo_and_run "popd >/dev/null"
 echo "pwd: $(pwd)"
 
-# brew install sdl-hercules-develop.rb
+# brew install --formula sdl-hercules-develop.rb
 # which hercules
 # hercules --version
 # brew remove sdl-hercules-develop
