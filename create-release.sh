@@ -121,6 +121,9 @@ curdir=`basename "$cpwd"`
 #       exit 1
 #fi
 
+git config user.email "bill@wrljet.com"
+git config user.name "Bill Lewis"
+
 #------------------------------------------------------------------------------
 echo "This script will rebuild Hercules and create a new Homebrew formula"
 
@@ -151,7 +154,8 @@ echo_and_run "pushd work >/dev/null"
 
   if confirm "Do you want to rebuild Hercules? [y/N]" ; then
     echo "OK"
-    ~/hercules-helper/hercules-buildall.sh -v --homebrew --no-bashrc --askpass --prefix=/usr/local --config=../build-for-homebrew.conf 
+#   ~/hercules-helper/hercules-buildall.sh -v --homebrew --no-bashrc --askpass --prefix=/usr/local --sudo --config=../build-for-homebrew.conf 
+    ~/hercules-helper/hercules-buildall.sh -v --homebrew --no-bashrc --askpass --prefix=/usr/local --sudo
   else
     :
   fi
@@ -179,7 +183,6 @@ echo "pwd: $(pwd)"
 #
 verbose_msg # output a newline
 status_prompter "Step: Copy build artifacts to local sdl-hercules-binaries-macos repo:"
-
 
 # Copy SDL-Hercules-390 build artifacts to ~/sdl-hercules-binaries-macos
 
@@ -262,24 +265,12 @@ cp /usr/local/share/man/man4/cckd.4      ~/sdl-hercules-binaries-macos/share/man
 
 #------------------------------------------------------------------------------
 #
-# Find current/newest tag in the binaries repo
-#
-verbose_msg # output a newline
-status_prompter "Step: Find current/newest tag already in the binaries repo:"
-
-  git config user.email "bill@wrljet.com"
-  git config user.name "Bill Lewis"
-
-#------------------------------------------------------------------------------
-#
 # Update $VERSION to $NEW_TAG and create GitHub release
 #
 
-#------------------------------------------------------------------------------
-#
 # Get highest current tag number
 VERSION=$(git describe --abbrev=0 --tags)
-echo "gti describe --abbrev=0 --tags:=$VERSION"
+echo "gti describe --abbrev=0 --tags = $VERSION"
 
 echo "Old Version: $VERSION"
 
@@ -324,10 +315,6 @@ cp -R ~/sdl-hercules-binaries-macOS/ sdl-hercules-binaries-macOS-$NEW_TAG/
 echo_and_run "rm -rf sdl-hercules-binaries-macOS-$NEW_TAG/.git"
 echo_and_run "tar cfz $PWD/sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz sdl-hercules-binaries-macOS-$NEW_TAG/"
 
-echo "FIXME FIXME"
-echo_and_run "ls -lh $PWD"
-echo "FIXME FIXME"
-
 popd
 
 #------------------------------------------------------------------------------
@@ -344,13 +331,9 @@ echo_and_run "cp sdl-hercules-develop.rb sdl-hercules-develop.rb.old"
 # https://github.com/wrljet/sdl-hercules-develop-homebrew/releases/download/v0.9.43/sdl-hercules-binaries-macos-4.6.0.10941-SDL-g65c97fd6-v0.9.43.tar.gz
 
 gsed -i -e "s/v0\.9\.[0-9]\+/$NEW_TAG/g" sdl-hercules-develop.rb
-#gsed -i -e "s/v0\.9\.[0-9]\+\.tar\.gz/$NEW_TAG.tar.gz/" sdl-hercules-develop.rb
 
 # Update formula (download release and get sha256)
 echo_and_run "rm -f /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/sdl-hercules-binaries-macOS.rb"
-
-# echo_and_run "brew fetch --formula sdl-hercules-develop.rb --build-from-source"
-# echo_and_run "brew fetch --formula sdl-hercules-develop.rb --build-from-source 2>/dev/null | grep -e '^SHA256:\s\+' | awk '{print \$2}'"
 
 #------------------------------------------------------------------------------
 #
@@ -397,16 +380,12 @@ fi
 #------------------------------------------------------------------------------
 #
 
-# Displays:
-# SHA256: a21951a4fafaac1808ca818a776ff07413bb4cee9d4f19ce4a05565746923346
-# SHA256=$(brew fetch --formula sdl-hercules-develop.rb --build-from-source 2>/dev/null | grep -e '^SHA256:\s\+' | awk '{print $2}')
-
 SHA256=$(sha256sum sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz)
 echo "New sha256: $SHA256"
 echo "First word of sha256sum: ${SHA256%% *}"
 SHA256=${SHA256%% *}
 
-# Edit the sha256
+# Edit the sha256 into the .rb
 gsed -i -e "s/  sha256 \"[0-9a-f]\+\"/  sha256 \"$SHA256\"/" sdl-hercules-develop.rb
 
 head sdl-hercules-develop.rb
