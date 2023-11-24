@@ -3,7 +3,7 @@
 # create-release.sh
 # Part of https://github.com/wrljet/sdl-hercules-develop-homebrew
 # Author:  Bill Lewis  bill@wrljet.com
-# Updated: 22 NOV 2023
+# Updated: 23 NOV 2023
 
 # To install Homebrew
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -151,7 +151,7 @@ echo_and_run "pushd work >/dev/null"
 
   if confirm "Do you want to rebuild Hercules? [y/N]" ; then
     echo "OK"
-    MACOSX_DEPLOYMENT_TARGET=11.6 ~/hercules-helper/hercules-buildall.sh -v --homebrew --no-bashrc --askpass --config=../build-for-homebrew.conf 
+    ~/hercules-helper/hercules-buildall.sh -v --homebrew --no-bashrc --askpass --prefix=/usr/local --config=../build-for-homebrew.conf 
   else
     :
   fi
@@ -267,137 +267,13 @@ cp /usr/local/share/man/man4/cckd.4      ~/sdl-hercules-binaries-macos/share/man
 verbose_msg # output a newline
 status_prompter "Step: Find current/newest tag already in the binaries repo:"
 
-## echo_and_run "pushd ~/sdl-hercules-binaries-macos >/dev/null"
-## 
-##     cat <<FOE >"VERSION"
-## #
-## # This file was created by $0, on $(date)
-## #
-## # This is version SDL-Hercules-390 build $SDL_VERSION"
-## #
-## FOE
-
   git config user.email "bill@wrljet.com"
   git config user.name "Bill Lewis"
-
-##   # git status
-##   # git commit -a -m "SDL-Hercules-390 build $SDL_VERSION"
-##   # git push
-## 
-## # Ideas in this section taken from https://gist.github.com/chadwagoner-sf/5a344f7e5601646721b5ff232f056113
-## # Forked from GitHub CSTDev/auto-increment-version.sh
-## 
-## # Ensure main is up-to-date
-## ##git pull origin main --quiet
-## 
-## # Get highest current tag number
-## VERSION=$(git describe --abbrev=0 --tags)
-## echo "gti describe --abbrev=0 --tags:=$VERSION"
-## 
-## echo "Old Version: $VERSION"
-## 
-## # Replace . with space so can split into an array
-## VERSION_BITS=(${VERSION//./ })
-## 
-## #get number parts and increase last one by 1
-## VNUM1=${VERSION_BITS[0]}
-## VNUM2=${VERSION_BITS[1]}
-## VNUM3=${VERSION_BITS[2]}
-## VNUM1=$(echo $VNUM1 | sed 's/v//')
-## 
-## # Check for #major or #minor in commit message and increment the relevant version number
-## MAJOR=$(git log --format=%B ${VERSION}..HEAD --oneline | grep '#major' || true)
-## MINOR=$(git log --format=%B ${VERSION}..HEAD --oneline | grep '#minor' || true)
-## 
-## if [ "$MAJOR" ]; then
-##     echo "Update major version"
-##     VNUM1=$((VNUM1+1))
-##     VNUM2=0
-##     VNUM3=0
-## elif [ "$MINOR" ]; then
-##     echo "Update minor version"
-##     VNUM2=$((VNUM2+1))
-##     VNUM3=0
-## else
-##     echo "Update patch version"
-##     VNUM3=$((VNUM3+1))
-## fi
-## 
-## # Create new tag
-## NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
-## 
-## # We want to keep the two most recent release
-## # So figure out the tags for two older than that
-## 
-## DEL_TAG1="v$VNUM1.$VNUM2.$((VNUM3-3))"
-## DEL_TAG2="v$VNUM1.$VNUM2.$((VNUM3-4))"
-## DEL_TAG3="v$VNUM1.$VNUM2.$((VNUM3-5))"
-## 
-## 
-##     declare -a releases_to_remove=( \
-##         "v$VNUM1.$VNUM2.$((VNUM3-3))"  \
-##         "v$VNUM1.$VNUM2.$((VNUM3-4))"  \
-##         "v$VNUM1.$VNUM2.$((VNUM3-5))"
-##     )
-## 
-##     echo "We want to remove older releases:"
-##     for release_tag in "${releases_to_remove[@]}"; do
-##         echo "  $release_tag"
-##     done
-## 
-##     for release_tag in "${releases_to_remove[@]}"; do
-##         echo "gh release view $release_tag"
-##         RC=$(gh release view $release_tag 2>&1 || true)
-##         if [[ $RC == "release not found" ]] ; then
-##             echo "    No such release: $release_tag"
-##         else
-##             echo "    Release: $release_tag will be removed"
-## 
-##             gh release delete $release_tag --cleanup-tag --yes
-## echo "gh release return code: $?"
-##         fi
-##     done
 
 #------------------------------------------------------------------------------
 #
 # Update $VERSION to $NEW_TAG and create GitHub release
 #
-## verbose_msg # output a newline
-## status_prompter "Step: Updating $VERSION to $NEW_TAG and create GitHub release:"
-
-# Trimming older releases...
-#
-# Show a list of all releases:
-#  gh release list
-#
-# List info about a release:
-#  gh release view v0.9.1
-# Set return code 0 if the release exists, or 1 if not found
-#
-# Delete an existing release:
-#  gh release delete v0.9.1 --cleanup-tag --yes
-
-## echo "Updating $VERSION to $NEW_TAG"
-## 
-## # Get current hash and see if it already has a tag
-## GIT_COMMIT=$(git rev-parse HEAD || true)
-## echo "GIT_COMMIT=$GIT_COMMIT"
-## NEEDS_TAG=$(git describe --contains $GIT_COMMIT 2>/dev/null || true)
-## echo "NEEDS_TAG=$NEEDS_TAG"
-## 
-## # Only tag if no tag already (would be better if the git describe command above could have a silent option)
-## if [ -z "$NEEDS_TAG" ]; then
-##     echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
-##     echo_and_run "git tag -a $NEW_TAG -m \"SDL-Hercules-390 build $SDL_VERSION\""
-##     echo_and_run "git push --tags"
-##     echo_and_run "gh release create $NEW_TAG --generate-notes --prerelease --title \"SDL-Hercules-390 build $SDL_VERSION\""
-## #    git fetch --all --tags --prune --prune-tags --quiet
-## else
-##     echo "Already a tag ($VERSION) on this commit.  Nothing to do."
-## fi
-## 
-## echo_and_run "popd >/dev/null"
-## echo "pwd: $(pwd)"
 
 #------------------------------------------------------------------------------
 #
@@ -553,7 +429,7 @@ echo_and_run "gh release upload $NEW_TAG sdl-hercules-develop.rb"
 echo "Remove build artifacts"
 echo_and_run "rm ~/sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz"
 echo_and_run "rm sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz"
-# FIXME echo_and_run "rm -r ~/sdl-hercules-binaries-macOS-$NEW_TAG/"
+echo_and_run "rm -r ~/sdl-hercules-binaries-macOS-$NEW_TAG/"
 
 #------------------------------------------------------------------------------
 #
@@ -604,6 +480,7 @@ status_prompter "Step: Remove Hercules installed by the build process:"
 echo_and_run "pushd work/hyperion/build >/dev/null"
 echo_and_run "sudo -A make uninstall"
 echo_and_run "sudo rm -rf /usr/local/share/hercules"
+echo_and_run "sudo rm -rf /usr/local/lib/hercules"
 echo_and_run "sudo rm -rf /usr/local/share/man/man4"
 echo_and_run "popd >/dev/null"
 echo "pwd: $(pwd)"
