@@ -3,7 +3,7 @@
 # create-release.sh
 # Part of https://github.com/wrljet/sdl-hercules-develop-homebrew
 # Author:  Bill Lewis  bill@wrljet.com
-# Updated: 23 NOV 2023
+# Updated: 25 NOV 2023
 
 # To install Homebrew
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -127,10 +127,10 @@ git config user.name "Bill Lewis"
 #------------------------------------------------------------------------------
 echo "This script will rebuild Hercules and create a new Homebrew formula"
 
-# Remove anything existing installed by Homebrew
+# Remove anything previously installed by Homebrew
 
 verbose_msg # output a newline
-status_prompter "Step: Remove anything existing installed by Homebrew:"
+status_prompter "Step: Remove anything previously installed by Homebrew:"
 
 echo_and_run "brew uninstall sdl-hercules-develop || true"
 echo_and_run "brew untap wrljet/sdl-hercules-develop || true"
@@ -270,7 +270,7 @@ cp /usr/local/share/man/man4/cckd.4      ~/sdl-hercules-binaries-macos/share/man
 
 # Get highest current tag number
 VERSION=$(git describe --abbrev=0 --tags)
-echo "gti describe --abbrev=0 --tags = $VERSION"
+echo "git describe --abbrev=0 --tags = $VERSION"
 
 echo "Old Version: $VERSION"
 
@@ -313,7 +313,7 @@ rm -rf ~/sdl-hercules-binaries-macOS-$NEW_TAG/
 cp -R ~/sdl-hercules-binaries-macOS/ sdl-hercules-binaries-macOS-$NEW_TAG/
 
 echo_and_run "rm -rf sdl-hercules-binaries-macOS-$NEW_TAG/.git"
-echo_and_run "tar cfz $PWD/sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz sdl-hercules-binaries-macOS-$NEW_TAG/"
+echo_and_run "tar cfz $PWD/sdl-hercules-binaries-macOS-$SDL_VERSION-$NEW_TAG.tar.gz sdl-hercules-binaries-macOS-$NEW_TAG"
 
 popd
 

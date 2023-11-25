@@ -7,7 +7,7 @@ class SdlHerculesDevelop < Formula
 # URL to binaries tarball is of this form:
 # https://github.com/wrljet/sdl-hercules-develop-homebrew/releases/download/v0.9.xx/sdl-hercules-binaries-macos-4.6.0.10941-SDL-g65c97fd6-v0.9.xx.tar.gz
   url "https://github.com/wrljet/sdl-hercules-develop-homebrew/releases/download/v0.9.65/sdl-hercules-binaries-macos-4.6.0.10941-SDL-g65c97fd6-v0.9.65.tar.gz"
-  sha256 "d17a16d93c8b34e55bd826b1f852434fccb2e574c389c5ab4a268358c0e60f76"
+  sha256 "9ff289bb5f24d21942de63740df0ad287b113c15827723a04a4f0b3b44e24cb9"
   license "QPL-1.0"
 
   def install
